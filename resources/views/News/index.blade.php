@@ -1,7 +1,19 @@
 @extends('layout')
 @section('content')
+<style>
+    h2,p{
+    padding-left: 5%;
+}
+    .current{
+        margin-left: auto;
+    }
+</style>
 
-<a href="{{route('News.create')}}" class="btn btn-success">Add News</a>
+<div>
+    <a href="{{route('News.create')}}" class="btn btn-success">Add News</a>
+    {{-- <span class='current'>{{$user->name}}</span> --}}
+    <hr>
+</div>
 
 @if(count($news)>0)
 
@@ -17,7 +29,6 @@
         </form>
         <hr>
         @endforeach
-            
  
 @endif
 @endsection

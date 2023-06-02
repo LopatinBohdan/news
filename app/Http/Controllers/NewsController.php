@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Comment;
 use DateTime;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class NewsController extends Controller
 {
@@ -15,7 +17,9 @@ class NewsController extends Controller
 
     public function show($id){
         $temp=News::find($id);
-        return view('News.show',compact('temp'));
+        $comments=Comment::all();
+        //dd($comments);
+        return view('News.show',compact('temp','comments'));
     }
 
     public function destroy($id){

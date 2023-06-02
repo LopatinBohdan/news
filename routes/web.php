@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,13 @@ use App\Http\Controllers\NewsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+//Route::get('/', [NewsController::class,'index']);
+Route::get('/', [HomeController::class,'index']);
+//Route::get('/', [HomeController::class,'welcome']);
+//Route::get('/', [LoginController::class,'login']);
 Route::resource('/News',NewsController::class);
-// Route::get('/home', function () {
-//     $title='Hello world!';
-//     return view('home', compact('title'));
-// });
+Route::resource("Comment", CommentController::class);
+//Route::resource('/News',NewsController::class);
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
