@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use DateTime;
 
 class CommentController extends Controller
 {
@@ -20,7 +21,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('comments.create');
     }
 
     /**
@@ -28,18 +29,16 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comm=new Comment();
-        $comm->message=$request->message;
-        $comm->user_id=auth()->user()->id;
-        $comm->news_id=$request->news_id;
-        $comm->save();
-        return redirect('/News');
+        Comment::create([
+            'content'=>$request->get('content'),
+            'rating'=>$request->get('rating')
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comment $comment)
     {
         //
     }
@@ -49,7 +48,8 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comment=Comment::find($id);
+        return view('comments.edit', compact('comment'));
     }
 
     /**
@@ -57,7 +57,17 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $comment=Comment::find($id);
+        $data=$request->validate([
+            'content'=>'required',
+            'rating'=>'max:10',
+        ]);
+
+        $comment->content=$data['content'];
+        $comment->updated_at=new DateTime();
+
+        $comment->save();
+        return redirect('/comments');
     }
 
     /**
@@ -65,6 +75,8 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comment=Comment::find($id);
+        $comment->delete();
+        return redirect('comments');
     }
 }

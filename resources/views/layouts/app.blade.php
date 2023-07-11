@@ -20,9 +20,35 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                   @can('role administrate')
+                    <li class="nav-item">
+                        <a href={{URL::to('/roles')}} class="nav-link">To Roles</a>
+                    </li>
+                    @endcan
+                    @can('user administrate')
+                    <li class="nav-item">
+                        <a href={{URL::to('/users')}} class="nav-link">To Users</a>
+                    </li>
+                    @endcan
+                    @can('permission administrate')
+                    <li class="nav-item">
+                        <a href={{URL::to('/permissions')}} class="nav-link">To Permissions</a>
+                    </li>
+                    @endcan
+                    {{-- @can('status administrate') --}}
+                    <li class="nav-item">
+                        <a href={{URL::to('/statuses')}} class="nav-link">To Statuses</a>
+                    </li>
+                    {{-- @endcan --}}
+                    <li class="nav-item">
+                        <a href={{URL::to('/placements')}} class="nav-link">To Placements</a>
+                    </li>
+                </ul>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

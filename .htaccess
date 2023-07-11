@@ -1,2 +1,13 @@
 RewriteEngine On
 RewriteRule (.*) public/$1
+
+# Options +FollowSymLinks
+# RewriteBase /
+
+# # Allow direct access to specific file types
+# RewriteRule \.(jpg|jpeg|png|gif|pdf|doc|docx|xls|xlsx|ppt|pptx)$ - [L]
+
+# # Rewrite requests to the storage directory
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ storage/$1 [L]
