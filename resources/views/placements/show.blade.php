@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <a href="{{URL::to("appartments/create")}}" class="btn btn-outline-primary">Create Appartment</a> --}}
 
 <table class="table table">
     <thead>

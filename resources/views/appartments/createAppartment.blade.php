@@ -3,7 +3,7 @@
 @section('content')
 
 
-<form action="{{route('appartments.store')}}" method="post">
+<form action="{{route('appartments.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <input name="placement_id" value={{$placement_id}} readonly/>
     <input name="title" class="form-control" required placeholder="title"/>

@@ -15,6 +15,8 @@ class DBSeeder extends Seeder
      */
     public function run(): void
     {
+
+        //Users
         DB::table('users')->insert([
             'name' => "admin",
             'email' => 'admin@admin.com',
@@ -29,7 +31,15 @@ class DBSeeder extends Seeder
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
         ]);
+        DB::table('users')->insert([
+            'name' => "landlord",
+            'email' => 'landlord@landlord.com',
+            'password' => Hash::make('landlord'),
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
 
+        //Roles
         DB::table('roles')->insert([
             'name' => "admin",
             'guard_name' => 'web',
@@ -42,6 +52,15 @@ class DBSeeder extends Seeder
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
         ]);
+        DB::table('roles')->insert([
+            //Орендодавець
+            'name' => "landlord",
+            'guard_name' => 'web',
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
+
+        //Model-Role
         DB::table ('model_has_roles')->insert([
             'role_id'=>'1',
             'model_type'=>'App\Models\User',
@@ -52,7 +71,13 @@ class DBSeeder extends Seeder
             'model_type'=>'App\Models\User',
             'model_id'=>'2',
         ]);
-            
+        DB::table ('model_has_roles')->insert([
+            'role_id'=>'3',
+            'model_type'=>'App\Models\User',
+            'model_id'=>'3',
+        ]);
+        
+        //Permission
         DB::table('permissions')->insert([
             'name' => "role administrate",
             'guard_name' => 'web',
@@ -72,8 +97,20 @@ class DBSeeder extends Seeder
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
         ]);
+        DB::table('permissions')->insert([
+            'name' => "status administrate",
+            'guard_name' => 'web',
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
+        DB::table('permissions')->insert([
+            'name' => "placement administrate",
+            'guard_name' => 'web',
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
 
-        
+        //Role-Permission
         DB::table('role_has_permissions')->insert([
             'permission_id' => "1",
             'role_id' => '1',
@@ -85,6 +122,19 @@ class DBSeeder extends Seeder
         DB::table('role_has_permissions')->insert([
             'permission_id' => "3",
             'role_id' => '1',
+        ]);
+        DB::table('role_has_permissions')->insert([
+            'permission_id' => "4",
+            'role_id' => '1',
+        ]);
+        DB::table('role_has_permissions')->insert([
+            'permission_id' => "5",
+            'role_id' => '1',
+        ]);
+       
+        DB::table('role_has_permissions')->insert([
+            'permission_id' => "5",
+            'role_id' => '3',
         ]);
 
     }

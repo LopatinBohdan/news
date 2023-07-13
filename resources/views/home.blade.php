@@ -16,7 +16,7 @@
                     {{ __('You are logged in!') }}
                 </div>
                 
-                <div>{{Auth::user()->roles()->get()}}</div>
+                {{-- <div>{{Auth::user()->roles()->get()}}</div> --}}
             </div>
         </div>
     </div>

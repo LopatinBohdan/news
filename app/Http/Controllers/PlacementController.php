@@ -60,7 +60,7 @@ class PlacementController extends Controller
     if($request->hasFile('placement_photo')){
         $photo=new Photo();
         $file=$request->file('placement_photo');
-        $photo->path=str_replace('public', 'storage',$file->store("public\images"));
+        $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement->id));
         $photo->name=$photo->path;
         $photo->save();
 

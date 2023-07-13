@@ -52,20 +52,17 @@ class AppartmentController extends Controller
         $placement->appartments()->attach($appartment);
 
         if(count( $_FILES)==0){
-            return redirect('appartments');
+            return redirect('placements');
         }
 
         if($request->hasFile('appartment_photo')){
             $photo=new Photo();
-            $image=$request->file('appartment_photo');
-            $imagePath=$image->store('public/imgs');
-            $photo->path=str_replace('public', 'storage', $imagePath);
-            $photo->name=$imagePath;
-            $request->file('appartment_photo')->move($photo->path);
-        
-        $photo->save();
+            $file=$request->file('appartment_photo');
+            $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement_id."\\".$appartment->id));
+            $photo->name=$photo->path;
+            $photo->save();
 
-        $appartment->photos()->attach($photo);
+            $appartment->photos()->attach($photo);
         }
 
         return redirect()->action(
@@ -118,9 +115,13 @@ class AppartmentController extends Controller
      */
     public function destroy(string $id)
     {
+        
         $appartment=Appartment::find($id);
+        $placement_id=$appartment->placements()->get()[0]->id;
         $appartment->delete();
         //$placement_id=
-        return redirect('placements' );
+        return redirect()->action(
+            [PlacementController::class, 'show'], ['placement' => $placement_id]
+        );
     }
 }
