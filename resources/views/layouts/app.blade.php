@@ -29,7 +29,7 @@
                         <a href={{URL::to('/roles')}} class="nav-link">To Roles</a>
                     </li>
                     @endcan
-                    @can('user administrate')
+                    @can('Full access')
                     <li class="nav-item">
                         <a href={{URL::to('/users')}} class="nav-link">To Users</a>
                     </li>
@@ -47,6 +47,11 @@
                     @can('placement administrate')
                     <li class="nav-item">
                         <a href={{URL::to('/placements')}} class="nav-link">To Placements</a>
+                    </li>
+                    @endcan
+                    @can('Full access')
+                    <li class="nav-item">
+                        <a href={{URL::to('/categories')}} class="nav-link">To Categories</a>
                     </li>
                     @endcan
                 </ul>

@@ -18,4 +18,8 @@ class Appartment extends Model
     {
         return $this->belongsToMany(Photo::class);
     }
+    public function comforts(): BelongsToMany
+    {
+        return $this->belongsToMany(Comfort::class);
+    }
 }

@@ -86,7 +86,7 @@ class DBSeeder extends Seeder
 
         ]);
         DB::table('permissions')->insert([
-            'name' => "user administrate",
+            'name' => "Full access",
             'guard_name' => 'web',
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
@@ -135,6 +135,48 @@ class DBSeeder extends Seeder
         DB::table('role_has_permissions')->insert([
             'permission_id' => "5",
             'role_id' => '3',
+        ]);
+        //Categories
+        DB::table('comfort_categories')->insert([
+            'title'=>"Comfort",
+        ]);
+        DB::table('comfort_categories')->insert([
+            'title'=>"Kitchen",
+        ]);
+        DB::table('comfort_categories')->insert([
+            'title'=>"Bathroom",
+        ]);
+        DB::table('comfort_categories')->insert([
+            'title'=>"Other",
+        ]);
+        //Comforts
+        DB::table('comforts')->insert([
+            'title'=>"WI-Fi",
+            'categoryId'=>1,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"Refrigirator",
+            'categoryId'=>2,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"Microwave",
+            'categoryId'=>2,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"WC",
+            'categoryId'=>3,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"Shower",
+            'categoryId'=>3,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"BBQ",
+            'categoryId'=>4,
+        ]);
+        DB::table('comforts')->insert([
+            'title'=>"Air condition",
+            'categoryId'=>4,
         ]);
 
     }

@@ -50,7 +50,6 @@ class PlacementController extends Controller
        $placement->home=$request->get('home');
        $placement->latitude=$request->get('latitude');
        $placement->longitude=$request->get('longitude');
-       $placement->terms=$request->get('terms');
 
        $placement->save();
        if(count( $_FILES)==0){
@@ -109,7 +108,6 @@ class PlacementController extends Controller
         $placement->home=$request->get('home');
         $placement->latitude=$request->get('latitude');
         $placement->longitude=$request->get('longitude');
-        $placement->terms=$request->get('terms');
 
         $placement->updated_at=new DateTime();
         

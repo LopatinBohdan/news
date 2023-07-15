@@ -28,6 +28,9 @@ Route::resource('/permissions',App\Http\Controllers\PermissionController::class)
 Route::resource('/statuses',App\Http\Controllers\StatusController::class);
 Route::resource('/placements',App\Http\Controllers\PlacementController::class);
 Route::resource('/appartments',App\Http\Controllers\AppartmentController::class);
+//////////
+Route::resource('/categories',App\Http\Controllers\ComfortCategoryController::class);
+//Route::get('/categories',[ComfortCategoryController::class, 'index']);
 
 Auth::routes();
 
