@@ -78,8 +78,6 @@ class PlacementController extends Controller
         $appartments=$placement->appartments()->get();
 
         $photo=$placement->photos()->get();
-        
-        //dd($photo[0]->path);
         return view('placements.show', compact('placement', 'appartments', 'photo') );
     }
 
@@ -109,8 +107,6 @@ class PlacementController extends Controller
         $placement->latitude=$request->get('latitude');
         $placement->longitude=$request->get('longitude');
 
-        $placement->updated_at=new DateTime();
-        
         $placement->save();
 
         return redirect('/placements');

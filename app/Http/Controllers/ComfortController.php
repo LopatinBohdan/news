@@ -3,63 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comfort;
+use App\Models\ComfortCategory;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ComfortController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $comforts = Comfort::all();
+        $categories=ComfortCategory::all();
+        return view('comforts.index', compact('comforts','categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $categories=ComfortCategory::all();
+        return view('comforts.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $comfort = new Comfort();
+        $comfort->title = $request->get('title');
+        $comfort->categoryId = $request->get('categoryId');
+        $comfort->created_at=new DateTime();
+        $comfort->save();
+
+        return redirect()->route('comforts.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comfort $comfort)
+    public function show($id)
     {
-        //
+        $comfort = Comfort::findOrFail($id);
+        return view('comforts.show', compact('comfort'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comfort $comfort)
+    public function edit($id)
     {
-        //
+        $comfort = Comfort::findOrFail($id);
+        $categories=ComfortCategory::all();
+        return view('comforts.edit', compact('comfort', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Comfort $comfort)
+    public function update(Request $request, $id)
     {
-        //
+        $comfort = Comfort::findOrFail($id);
+        $comfort->title = $request->input('title');
+        $comfort->categoryId = $request->input('categoryId');
+        $comfort->updated_at=new DateTime();
+        $comfort->save();
+
+        return redirect()->route('comforts.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comfort $comfort)
+    public function destroy($id)
     {
-        //
+        $comfort = Comfort::findOrFail($id);
+        $comfort->delete();
+
+        return redirect()->route('comforts.index');
     }
 }

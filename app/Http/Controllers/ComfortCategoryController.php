@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\ComfortCategory;
-use Faker\Core\DateTime;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ComfortCategoryController extends Controller
@@ -15,7 +14,6 @@ class ComfortCategoryController extends Controller
     public function index()
     {
         $categories=ComfortCategory::all();
-        dd($categories);
         return view('categories.index', compact('categories'));
     }
 
@@ -34,6 +32,9 @@ class ComfortCategoryController extends Controller
     {
         $category=new ComfortCategory();
         $category->title=$request->get('title');
+        $category->created_at=new DateTime();
+        $category->updated_at=new DateTime();
+        $category->save();
         return redirect('categories');
     }
 
@@ -51,6 +52,7 @@ class ComfortCategoryController extends Controller
     public function edit(string $id)
     {
         $category=ComfortCategory::find($id);
+       
         return view("categories.edit", compact("category"));
     }
 
@@ -60,13 +62,11 @@ class ComfortCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category=ComfortCategory::find($id);
-
         $data=$request->validate([
             'title'=>'required',
         ]);
-
         $category->title=$data['title'];
-        $category->update_at=new DateTime();
+        $category->updated_at=new DateTime();
         $category->save();
 
         return redirect('/categories');

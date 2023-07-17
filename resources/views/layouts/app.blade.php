@@ -54,6 +54,11 @@
                         <a href={{URL::to('/categories')}} class="nav-link">To Categories</a>
                     </li>
                     @endcan
+                    @can('Full access')
+                    <li class="nav-item">
+                        <a href={{URL::to('/comforts')}} class="nav-link">To Comforts</a>
+                    </li>
+                    @endcan
                 </ul>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

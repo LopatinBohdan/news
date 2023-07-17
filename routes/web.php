@@ -30,6 +30,7 @@ Route::resource('/placements',App\Http\Controllers\PlacementController::class);
 Route::resource('/appartments',App\Http\Controllers\AppartmentController::class);
 //////////
 Route::resource('/categories',App\Http\Controllers\ComfortCategoryController::class);
+Route::resource('/comforts',App\Http\Controllers\ComfortController::class);
 //Route::get('/categories',[ComfortCategoryController::class, 'index']);
 
 Auth::routes();

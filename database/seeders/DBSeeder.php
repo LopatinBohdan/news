@@ -139,45 +139,66 @@ class DBSeeder extends Seeder
         //Categories
         DB::table('comfort_categories')->insert([
             'title'=>"Comfort",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
         ]);
         DB::table('comfort_categories')->insert([
             'title'=>"Kitchen",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
         ]);
         DB::table('comfort_categories')->insert([
             'title'=>"Bathroom",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
         ]);
         DB::table('comfort_categories')->insert([
             'title'=>"Other",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
         ]);
         //Comforts
         DB::table('comforts')->insert([
             'title'=>"WI-Fi",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>1,
         ]);
         DB::table('comforts')->insert([
             'title'=>"Refrigirator",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>2,
         ]);
         DB::table('comforts')->insert([
             'title'=>"Microwave",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>2,
         ]);
         DB::table('comforts')->insert([
             'title'=>"WC",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>3,
         ]);
         DB::table('comforts')->insert([
             'title'=>"Shower",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>3,
         ]);
         DB::table('comforts')->insert([
             'title'=>"BBQ",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>4,
         ]);
         DB::table('comforts')->insert([
             'title'=>"Air condition",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
             'categoryId'=>4,
         ]);
-
     }
 }

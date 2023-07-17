@@ -51,20 +51,28 @@ class AppartmentController extends Controller
         $placement=Placement::find($placement_id);
         $placement->appartments()->attach($appartment);
 
-        if(count( $_FILES)==0){
+        if(count($_FILES)==0){
+            dd(count($_FILES));
             return redirect('placements');
         }
+        
+        // foreach ($_FILES["appartment_photo"]["error"] as $key => $error) {
+        //     dd($_FILES);
+        //     if ($error == UPLOAD_ERR_OK) {
+        //       $name = $_FILES["appartment_photo"]["id"][$key];
+        //       move_uploaded_file( $_FILES["appartment_photo"]["id"][$key], "uploads/" . $_FILES['images']['name'][$key]);
+        //     }
+        //   }
 
-        if($request->hasFile('appartment_photo')){
+        foreach ($request->file('appartment_photo') as $file) {
             $photo=new Photo();
-            $file=$request->file('appartment_photo');
             $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement_id."\\".$appartment->id));
             $photo->name=$photo->path;
             $photo->save();
 
             $appartment->photos()->attach($photo);
         }
-
+        
         return redirect()->action(
             [PlacementController::class, 'show'], ['placement' => $placement_id]
         );
@@ -76,7 +84,9 @@ class AppartmentController extends Controller
     public function show(string $id)
     {
         $appartment=Appartment::find($id);
-        return view('appartments.show', compact('appartment'));
+        $placement=$appartment->placements()->get();
+        $photo=$appartment->photos()->get();
+        return view('appartments.show', compact('appartment', 'photo', 'placement'));
 
     }
 
@@ -86,7 +96,8 @@ class AppartmentController extends Controller
     public function edit(string $id)
     {
         $appartment=Appartment::find($id);
-        return view('appartments.edit', compact('appartment'));
+        $placement=$appartment->placements()->get();
+        return view('appartments.edit', compact('appartment','placement'));
     }
 
     /**
@@ -101,9 +112,7 @@ class AppartmentController extends Controller
         $appartment->roomAmount=$request->get('roomAmount');
         $appartment->isFree=$request->get('isFree');
         $appartment->price=$request->get('price');
-
         $appartment->updated_at=new DateTime();
-
         $appartment->save();
 
         return redirect('/appartments');
@@ -119,7 +128,6 @@ class AppartmentController extends Controller
         $appartment=Appartment::find($id);
         $placement_id=$appartment->placements()->get()[0]->id;
         $appartment->delete();
-        //$placement_id=
         return redirect()->action(
             [PlacementController::class, 'show'], ['placement' => $placement_id]
         );
