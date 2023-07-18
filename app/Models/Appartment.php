@@ -22,4 +22,8 @@ class Appartment extends Model
     {
         return $this->belongsToMany(Comfort::class);
     }
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

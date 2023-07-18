@@ -10,45 +10,46 @@
   </ol>
 </nav>
 
+<ul >
+  <li>{{$appartment->id}}</li> 
+  <li>{{$appartment->title}}</li> 
+  <li>{{$appartment->personAmount}}</li> 
+  <li>{{$appartment->roomAmount}}</li> 
+  <li>{{$appartment->price}}</li> 
+  <li>{{$appartment->created_at}}</li> 
+  <li>{{$appartment->updated_at}}</li> 
+  <li>photo - {{count($photo)}}</li> 
+</ul>
 <table class="table table">
-    <thead>
+  <thead>
     <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Person Amount</th>
-        <th>Room Amount</th>
-        <th>Is free</th>
-        <th>price</th>
-        <th>Created_at</th>
-        <th>Updated_at</th>
-        <th>Operations</th>
+      <th>BookingBegin</th>
+      <th>BookingEnd</th>
+      <th>Operation</th>
     </tr>
-    </thead>
-    <tbody>
-            <tr>
-               <td>{{$appartment->id}}</td> 
-               <td>{{$appartment->title}}</td> 
-               <td>{{$appartment->personAmount}}</td> 
-               <td>{{$appartment->roomAmount}}</td> 
-               <td>{{$appartment->isFree}}</td> 
-               <td>{{$appartment->isFree}}</td> 
-               <td>{{$appartment->price}}</td> 
-               <td>{{$appartment->updated_at}}</td> 
-               <td>
-                <div class="d-flex">
-                    <a href="{{URL::to("appartments/".$appartment->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
-                    <a href="{{URL::to("appartments/".$appartment->id)}}"class="btn btn-outline-primary me-3">Show</a>
-                    <form method="post" action="{{route('appartments.destroy',$appartment->id)}}">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" value="Delete" class="btn btn-outline-danger">
-                    </form>
-                </div>
-                </td> 
-            </tr>
-    </tbody>
+  </thead>
+  <tbody>
+    @foreach ($bookings as $item)
+      <tr>
+        <td>{{$item->bookingFirst}}</td>
+        <td>{{$item->bookingLast}}</td>
+        <td>
+          <div class="d-flex">
+              <a href="{{URL::to("bookings/".$item->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
+              <form method="post" action="{{route('bookings.destroy',$item->id)}}">
+                  @csrf
+                  @method('DELETE')
+                  <input type="submit" value="Delete" class="btn btn-outline-danger">
+              </form>
+          </div>
+          </td> 
+      </tr>
+    @endforeach
+    
+  </tbody>
 </table>
-        @if(isset($photo))
+   
+        {{-- @if(isset($photo))
         <div id="carouselExampleIndicators" class="carousel slide w-50" data-bs-ride="true">
             <div class="carousel-inner">
                 @for ($i = 0; $i < count($photo); $i++)
@@ -66,6 +67,6 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-        @endif
+        @endif --}}
 
 @endsection

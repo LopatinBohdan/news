@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -104,6 +105,9 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a href={{URL::to('/orders')}} class="nav-link">My orders</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -114,5 +118,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('script')
 </body>
 </html>
