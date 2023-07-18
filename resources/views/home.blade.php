@@ -12,6 +12,28 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <style>
+     a:link {
+      text-decoration: none;
+    }
+
+    a:visited {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: #494949;
+    }
+    a:hover img{
+      opacity: 0.9;
+    }
+
+    a:active {
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,14 +44,17 @@
     @section('content')
     <div class="container">
 
-      <div class="justify-content-center d-flex">
-        <img width="70%" src="https://rezdy.com//wp-content/uploads/2021/11/Blog-Photos-26.png">
+      <div class="justify-content-center d-flex shadow-lg">
+        <img style="" width="70%" src="https://rezdy.com//wp-content/uploads/2021/11/Blog-Photos-26.png">
       </div>
-      <p>Hello World!</p>
-      <div class="grid-cols-3">
+      <br/>
+      <br/>
+      <p style="font-size: 40px"><b>Where to next?</b></p>
+      
+      <div class="container">
         <div class="row">
-        <div class="card me-3 shadow col">
-          <img src="http://surl.li/jcovl" class="card-img-top" alt="...">
+        <a class="card shadow col-4" href="#"><div>
+          <img style="border-radius: 5px" src="http://surl.li/jcovl" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -37,22 +62,29 @@
           {{-- <div class="card-footer">
             <small class="text-muted">Last updated 3 mins ago</small>
           </div> --}}
-        </div>
-        <div class="card me-3 shadow col">
-          <img src="http://surl.li/jcovl" class="card-img-top" alt="...">
+        </div></a>
+        <a class="card shadow col-4" href="#"><div>
+          <img style="border-radius: 5px" src="http://surl.li/jcovl" class="card-img-top" alt="...">
           <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        
-        </div>
-        <div class="card me-3 shadow col">
-          <img src="http://surl.li/jcovl" class="card-img-top" alt="...">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          </div>
+        </div></a>
+        <a class="card shadow col-4" href="#"><div>
+          <img style="border-radius: 5px" src="http://surl.li/jcovl" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
           </div>
-      </div>
+        </div></a>
+        <a class="card shadow col-4" href="#"><div>
+          <img style="border-radius: 5px" src="http://surl.li/jcovl" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          </div>
+        </div></a>
+        
     </div>
   </div>
     @endsection

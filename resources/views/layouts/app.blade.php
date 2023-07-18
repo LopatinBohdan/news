@@ -24,12 +24,16 @@
           height: 100%;
           background-color: #000;
         }
+        
     </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body style="background-color: #e6edf3; 
+font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'; 
+font-size: var(--body-font-size, 14px);
+line-height: 1.5; color: #0d1117">
     <div id="app">
         <nav class="myNav navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
@@ -114,12 +118,12 @@
             </div>
         </nav>
 
-        <main class="d-flex flex-column  py-4">
+        <main class="d-flex flex-column p-3">
             @yield('content')
         </main>
 
           <!-- Footer -->
-<footer class="footer bg-dark text-center text-white position-sticky">
+<footer class="footer bg-gradient text-center text-white position-sticky">
     <!-- Grid container -->
     <div class="container p-4">
       <!-- Section: Social media -->
