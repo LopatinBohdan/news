@@ -9,6 +9,35 @@
             <li class="breadcrumb-item active" aria-current="page">Show</li>
         </ol>
     </nav>
+    <a href="{{URL::to("appartments/createAppartment/".$placement->id)}}" class="btn btn-outline-success me-3">Add appartment</a>
+    <div class="row">
+        @if (isset($photos)&&count($photos)!=0)
+        <div id="carouselId" class="carousel slide col-4" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @for ($i = 0; $i < $count; $i++)
+                    <div class="carousel-item {{$i==0?"active":""}}">
+                        <img src="{{ asset($photo[$i]->path) }}" class="w-100 d-block" alt="First slide">
+                    </div>
+                @endfor
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        @endif
+        <div class="col-8">
+            <h2>{{$placement->title}}</h2>
+            <ul>
+                <li>Country - {{$placement->country}}</li>
+                <li>...</li>
+            </ul>
+        </div>
+    </div>
 
     <table class="table table">
         <thead>
@@ -17,7 +46,7 @@
                 <th>Title</th>
                 <th>Person Amount</th>
                 <th>Room Amount</th>
-                <th>Is free</th>
+                <th>Price</th>
                 <th>Created_at</th>
                 <th>Updated_at</th>
                 <th>Operations</th>
@@ -30,7 +59,7 @@
                     <td>{{ $appartment->title }}</td>
                     <td>{{ $appartment->personAmount }}</td>
                     <td>{{ $appartment->roomAmount }}</td>
-                    <td>{{ $appartment->isFree }}</td>
+                    <td>{{ $appartment->price }}</td>
                     <td>{{ $appartment->created_at }}</td>
                     <td>{{ $appartment->updated_at }}</td>
                     <td>
@@ -53,24 +82,25 @@
             @endforeach
         </tbody>
     </table>
-    @if (isset($photo))
-        <img class="w-25" src="{{ asset($photo[0]->path) }}" alt="Title">
-    @endif
+    
 @endsection
 
 @section('script')
     <script>
-        var cookieData = getCookie("my_cookie");
+        var userID = {{auth()->user()->id}};
+        var cookieData = getCookie(userID);
         var cookieArray = cookieData ? JSON.parse(cookieData) : [];
         for (var i = 0; i < cookieArray.length; i++) {
-            var apartments = cookieArray[i].apartmentID;
-            for (var j = 0; j < apartments.length; j++) {
-                var apartmentId = apartments[j];
-                var buttonId = "button_" + i;
-                var button = document.getElementById(buttonId);
-                if (button && button.getAttribute("onclick").includes("'" + apartmentId + "'")) {
-                    button.disabled = true;
-                    break;
+            if(cookieArray[i].placementID=={{$placement->id}}){
+                var apartments = cookieArray[i].apartmentID;
+                for (var j = 0; j < apartments.length; j++) {
+                    var apartmentId = apartments[j];
+                    var buttonId = "button_" + i;
+                    var button = document.getElementById(buttonId);
+                    if (button && button.getAttribute("onclick").includes("'" + apartmentId + "'")) {
+                        button.disabled = true;
+                        break;
+                    }
                 }
             }
         }
@@ -100,19 +130,15 @@
 
         function updateCookie(userID, placementID, apartmentID, buttonId) {
             // Retrieve the existing cookie data or initialize an empty array
-            var cookieData = getCookie("my_cookie");
+            var cookieData = getCookie(userID);
             var cookieArray = cookieData ? JSON.parse(cookieData) : [];
 
-            // Check if the cookie with the same userID and placementID exists
+            // Check if the cookie with the same placementID exists
             var cookieExists = false;
             for (var i = 0; i < cookieArray.length; i++) {
-                if (cookieArray[i].userID === userID && cookieArray[i].placementID === placementID) {
+                if (cookieArray[i].placementID === placementID) {
                     // Check if the apartmentID already exists in the array
-                    if (cookieArray[i].apartmentID.includes(apartmentID)) {
-                        // Disable the button
-                        document.getElementById(buttonId).disabled = true;
-                        return; // Exit the function
-                    } else {
+                    if (!cookieArray[i].apartmentID.includes(apartmentID)) {
                         // Add the apartmentID to the existing cookie data
                         cookieArray[i].apartmentID.push(apartmentID);
                         cookieExists = true;
@@ -120,19 +146,18 @@
                     }
                 }
             }
-
             // If the cookie doesn't exist, create a new row
             if (!cookieExists) {
                 var newRow = {
-                    userID: userID,
                     placementID: placementID,
                     apartmentID: [apartmentID]
                 };
                 cookieArray.push(newRow);
             }
+            document.getElementById(buttonId).disabled = true;
 
             // Update the cookie
-            setCookie("my_cookie", JSON.stringify(cookieArray), 1);
+            setCookie(userID, JSON.stringify(cookieArray), 1);
 
             // Optional: Display the updated cookie value
             console.log("Updated cookie: " + JSON.stringify(cookieArray));

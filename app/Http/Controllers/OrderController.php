@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appartment;
 use App\Models\Order;
+use App\Models\Placement;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,18 +16,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        
+        $userId = Auth::user()->id;
+        $orders = Order::where("userId",$userId)->get();
+        return view('orders.index', compact('orders'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function createOrder(string $id)
+    public function create()
     {
-        $appartment=Appartment::find($id);
-        $placement=$appartment->placements()->get();
-        $user=Auth::user();
-        return view('orders.create', compact('appartment','placement','user'));
+        $placements = Placement::all();
+        $appartments = Appartment::all();
+        return view('orders.create', compact('placements','appartments'));
     }
 
     /**

@@ -55,7 +55,7 @@ class AppartmentController extends Controller
             dd(count($_FILES));
             return redirect('placements');
         }
-        
+        if($request->hasFile('appartment_photo')){
         foreach ($request->file('appartment_photo') as $file) {
             $photo=new Photo();
             $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement_id."\\".$appartment->id));
@@ -63,7 +63,7 @@ class AppartmentController extends Controller
             $photo->save();
 
             $appartment->photos()->attach($photo);
-        }
+        }}
         
         return redirect()->action(
             [PlacementController::class, 'show'], ['placement' => $placement_id]
