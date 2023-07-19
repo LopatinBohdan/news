@@ -12,17 +12,36 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <style>
+        .myNav{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+        }
+        footer {
+          height: 100%;
+          background-color: #000;
+        }
+    </style>
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body style="background-color: #e6edf3; 
+font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'; 
+font-size: var(--body-font-size, 14px);
+line-height: 1.5; color: #0d1117">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="myNav navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    Apartment is here!
                 </a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                    @can('role administrate')
@@ -114,10 +133,117 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="d-flex flex-column p-3">
             @yield('content')
         </main>
+
+          <!-- Footer -->
+<footer class="footer bg-gradient text-center text-white position-sticky">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+  
+        <!-- Twitter -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-twitter"></i
+        ></a>
+  
+        <!-- Google -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-google"></i
+        ></a>
+  
+        <!-- Instagram -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-instagram"></i
+        ></a>
+  
+        <!-- Linkedin -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+  
+        <!-- Github -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
+  
+      <!-- Section: Form -->
+      <section class="">
+        <form action="">
+          <!--Grid row-->
+          <div class="row d-flex justify-content-center">
+            <!--Grid column-->
+            <div class="col-auto">
+              <p class="pt-2">
+                <strong>Sign up for our newsletter</strong>
+              </p>
+            </div>
+            <!--Grid column-->
+  
+            <!--Grid column-->
+            <div class="col-md-5 col-12">
+              <!-- Email input -->
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="form5Example21" class="form-control" placeholder="Email address" />
+              </div>
+            </div>
+            <!--Grid column-->
+  
+            <!--Grid column-->
+            <div class="col-auto">
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-outline-light mb-4">
+                Subscribe
+              </button>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </form>
+      </section>
     </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-white" href="/">Booking KR</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+    </div>
+
     @yield('script')
+
+    <script>
+      const button1 = document.getElementById('btn1');
+      const button2 = document.getElementById('btn2');
+      const myDiv = document.getElementById('items');
+    
+      button1.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-12');
+          child.classList.add('col-3');
+        });
+      });
+    
+      button2.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-3');
+          child.classList.add('col-12');
+        });
+      });
+    
+    </script>
+
 </body>
 </html>

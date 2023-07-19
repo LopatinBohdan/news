@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $placements = Placement::all();
+    return view('home', compact('placements'));
 });
 Route::get('/appartments/createAppartment/{id}',[AppartmentController::class, 'createAppartment']);
 Route::get('/orders/createOrder/{id}',[OrderController::class, 'createOrder']);
@@ -39,4 +40,4 @@ Route::resource('/bookings',App\Http\Controllers\BookingController::class);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
