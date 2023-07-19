@@ -52,19 +52,15 @@ class PlacementController extends Controller
        $placement->longitude=$request->get('longitude');
 
        $placement->save();
-       if(count( $_FILES)==0){
-        return redirect('placements');
-       }
    
-    if($request->hasFile('placement_photo')){
-        $photo=new Photo();
-        $file=$request->file('placement_photo');
-        $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement->id));
-        $photo->name=$photo->path;
-        $photo->save();
-
-        $placement->photos()->attach($photo);
-    }
+       if($request->hasFile('placement_photo')){
+        foreach ($request->file('placement_photo') as $file) {
+            $photo=new Photo();
+            $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement->id));
+            $photo->name=$photo->path;
+            $photo->save();
+            $placement->photos()->attach($photo);
+        }}
 
         return redirect('placements');
     }
@@ -77,8 +73,8 @@ class PlacementController extends Controller
         $placement=Placement::find($id);
         $appartments=$placement->appartments()->get();
 
-        $photo=$placement->photos()->get();
-        return view('placements.show', compact('placement', 'appartments', 'photo') );
+        $photos=$placement->photos()->get();
+        return view('placements.show', compact('placement', 'appartments', 'photos') );
     }
 
     /**
