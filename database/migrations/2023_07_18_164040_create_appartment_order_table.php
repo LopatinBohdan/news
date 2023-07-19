@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations. DONE
+     * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('appartments', function (Blueprint $table) {
+        Schema::create('appartment_order', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('personAmount')->unsigned();
-            $table->integer('roomAmount')->unsigned();
+            $table->integer('appartmentId')->unsigned();
+            $table->integer('orderId')->unsigned();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appartments');
+        Schema::dropIfExists('appartment_order');
     }
 };

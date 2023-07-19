@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('title');
             $table->integer('userId')->references('id')->on('users'); 
             $table->integer('statusId')->references('id')->on('statuses');
-            $table->integer('appartmentId')->references('id')->on('appartments');
             $table->integer('placementId')->references('id')->on('placements');
             $table->double('totalSum'); 
             $table->timestamps();

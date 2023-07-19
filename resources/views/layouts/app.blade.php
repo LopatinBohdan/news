@@ -12,6 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <style>
         .myNav{
@@ -24,8 +26,8 @@
           height: 100%;
           background-color: #000;
         }
-        
     </style>
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -47,7 +49,7 @@ line-height: 1.5; color: #0d1117">
                         <a href={{URL::to('/roles')}} class="nav-link">To Roles</a>
                     </li>
                     @endcan
-                    @can('user administrate')
+                    @can('Full access')
                     <li class="nav-item">
                         <a href={{URL::to('/users')}} class="nav-link">To Users</a>
                     </li>
@@ -65,6 +67,16 @@ line-height: 1.5; color: #0d1117">
                     @can('placement administrate')
                     <li class="nav-item">
                         <a href={{URL::to('/placements')}} class="nav-link">To Placements</a>
+                    </li>
+                    @endcan
+                    @can('Full access')
+                    <li class="nav-item">
+                        <a href={{URL::to('/categories')}} class="nav-link">To Categories</a>
+                    </li>
+                    @endcan
+                    @can('Full access')
+                    <li class="nav-item">
+                        <a href={{URL::to('/comforts')}} class="nav-link">To Comforts</a>
                     </li>
                     @endcan
                 </ul>
@@ -111,6 +123,9 @@ line-height: 1.5; color: #0d1117">
                                         @csrf
                                     </form>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href={{URL::to('/orders')}} class="nav-link">My orders</a>
                             </li>
                         @endguest
                     </ul>
@@ -206,6 +221,9 @@ line-height: 1.5; color: #0d1117">
   </footer>
   <!-- Footer -->
     </div>
+
+    @yield('script')
+
     <script>
       const button1 = document.getElementById('btn1');
       const button2 = document.getElementById('btn2');
@@ -226,5 +244,6 @@ line-height: 1.5; color: #0d1117">
       });
     
     </script>
+
 </body>
 </html>

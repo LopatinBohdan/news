@@ -10,7 +10,6 @@
         <th>title</th>
         <th>personAmount</th>
         <th>roomAmount</th>
-        <th>isFree</th>
         <th>price</th>
         <th>Created_at</th>
         <th>Updated_at</th>
@@ -25,7 +24,6 @@
                <td>{{$appartment->title}}</td> 
                <td>{{$appartment->personAmount}}</td> 
                <td>{{$appartment->roomAmount}}</td> 
-               <td>{{$appartment->isFree}}</td> 
                <td>{{$appartment->price}}</td> 
                <td>{{$appartment->created_at}}</td> 
                <td>{{$appartment->updated_at}}</td> 

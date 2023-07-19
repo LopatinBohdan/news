@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appartment;
 use App\Models\Order;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -12,15 +15,18 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createOrder(string $id)
     {
-        //
+        $appartment=Appartment::find($id);
+        $placement=$appartment->placements()->get();
+        $user=Auth::user();
+        return view('orders.create', compact('appartment','placement','user'));
     }
 
     /**
@@ -28,23 +34,37 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order=new Order();
+
+        $order->title=$request->get('title');
+        $order->userId=$request->get('userId');
+        $order->appartmentId=$request->get('appartmentId');
+        $order->placementId=$request->get('placementId');
+        $order->totalSum=$request->get('totalSum');
+
+        $order->statusId=Status::where('title', "awaiting confirmation")->get()->id;
+        $order->save();
+        redirect("/");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(string $id)
     {
-        //
+        $order=Order::find($id);
+
+        return view('orders.show', compact('order'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit(string $id)
     {
-        //
+        $order=Order::find($id);
+
+        return view('orders.edit', compact('order'));
     }
 
     /**

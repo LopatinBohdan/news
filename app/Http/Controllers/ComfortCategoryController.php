@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComfortCategory;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ComfortCategoryController extends Controller
@@ -12,7 +13,8 @@ class ComfortCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories=ComfortCategory::all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ComfortCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -28,7 +30,12 @@ class ComfortCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category=new ComfortCategory();
+        $category->title=$request->get('title');
+        $category->created_at=new DateTime();
+        $category->updated_at=new DateTime();
+        $category->save();
+        return redirect('categories');
     }
 
     /**
@@ -42,24 +49,36 @@ class ComfortCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ComfortCategory $comfortCategory)
+    public function edit(string $id)
     {
-        //
+        $category=ComfortCategory::find($id);
+       
+        return view("categories.edit", compact("category"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ComfortCategory $comfortCategory)
+    public function update(Request $request, string $id)
     {
-        //
+        $category=ComfortCategory::find($id);
+        $data=$request->validate([
+            'title'=>'required',
+        ]);
+        $category->title=$data['title'];
+        $category->updated_at=new DateTime();
+        $category->save();
+
+        return redirect('/categories');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ComfortCategory $comfortCategory)
+    public function destroy(string $id)
     {
-        //
+        $category=ComfortCategory::find($id);
+        $category->delete();
+        return redirect("categories");
     }
 }
