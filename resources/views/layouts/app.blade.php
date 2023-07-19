@@ -206,5 +206,25 @@ line-height: 1.5; color: #0d1117">
   </footer>
   <!-- Footer -->
     </div>
+    <script>
+      const button1 = document.getElementById('btn1');
+      const button2 = document.getElementById('btn2');
+      const myDiv = document.getElementById('items');
+    
+      button1.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-12');
+          child.classList.add('col-3');
+        });
+      });
+    
+      button2.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-3');
+          child.classList.add('col-12');
+        });
+      });
+    
+    </script>
 </body>
 </html>
