@@ -6,6 +6,8 @@ use App\Models\Appartment;
 use App\Models\Order;
 use App\Models\Placement;
 use App\Models\Status;
+use App\Models\Booking;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,18 +39,57 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order=new Order();
-
-        $order->title=$request->get('title');
-        $order->userId=$request->get('userId');
-        $order->appartmentId=$request->get('appartmentId');
+        $order->userId=auth()->user()->id;
         $order->placementId=$request->get('placementId');
-        $order->totalSum=$request->get('totalSum');
+        $placement=Placement::find($order->placementId);
+        $order->title="Order ".$placement->title." ".((new DateTime())->format("dd-mm-YYYY"));
+        $order->totalSum=$request->get('totalPrice_'.$placement->id);
 
-        $order->statusId=Status::where('title', "awaiting confirmation")->get()->id;
+        $order->statusId=Status::where('name', "awaiting confirmation")->first()->id;
         $order->save();
-        redirect("/");
+
+        $userID = Auth::user()->id;
+        // Retrieve the cookie data
+        $cookieData = isset($_COOKIE[$userID]) ? $_COOKIE[$userID] : '';
+        $cookieArray = json_decode($cookieData, true);
+        $dataset = [];
+        // Check if the cookie data exists
+        if ($cookieArray) {
+            // Iterate through the cookie array and perform actions
+            foreach ($cookieArray as $data) {
+                $dataset[] = $data;
+            }
+        }
+        $pi=$placement->id;
+
+        $data=array_filter($dataset, function($q)use($pi){
+            return OrderController::filterByIdReverse($q,$pi);
+        });
+       
+        foreach ($data[0]['apartmentID'] as $appartmentID) {
+            $booking=new Booking();
+            $booking->bookingFirst=$request->get('firstDate_'.$appartmentID);
+            $booking->bookingLast=$request->get('lastDate_'.$appartmentID);
+            $booking->appartmentId=$appartmentID;
+            $booking->save();
+
+            $order->appartments()->attach(Appartment::find($appartmentID));
+        }   
+       
+        $cookieArray=array_filter($cookieArray, function($q)use($pi){
+            return OrderController::filterById($q,$pi);
+        });
+        setcookie(auth()->user()->id, json_encode($cookieArray));
+
+        return redirect("/");
     }
 
+     function filterById($q,$pi){
+        return $q['placementID']!=$pi; 
+    }
+    function filterByIdReverse($q,$pi){
+        return $q['placementID']==$pi; 
+    }
     /**
      * Display the specified resource.
      */

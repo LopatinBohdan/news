@@ -19,9 +19,11 @@
     opacity: 0.9;
   }
 
+
   a:active {
     text-decoration: none;
   }
+
 
 .image-container {
   width: 70vw;
@@ -44,41 +46,57 @@
     <div class="input-group mb-3">
       <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
-    <button name="btn1" id="btn1">Button1</button>
-    <button name="btn2" id="btn2">Button2</button>
     <div class="container">
-      <div class="row" id="items">
-        @foreach ($placements as $item)
-        <a class="card shadow col-12 p-0 me-2 ms-2" href="{{URL::to('/placements/' . $item->id)}}">
-          <div id="carouselId" class="carousel slide card-img-top" data-bs-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-              @for ($i = 0; $i < count($item->photos()->get()); $i++)
-                <div class="carousel-item {{$i == 0 ? "active" : ""}}">
-                  <img src="{{asset($item->photos()->get()[$i]->path)}}" class="w-100 d-block" alt="Second slide">
-                </div> 
-              @endfor
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-              </button>
-          </div>
-          {{-- <img style="border-radius: 5px" src="{{asset($item->photos()->get()[0]->path)}}" class="card-img-top" alt="..."> --}}
-          <div class="card-body">
-            <h5 class="card-title">{{$item->title}}</h5>
-            <p class="card-text">Hello World!</p>
-          </div>
-          {{-- <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div> --}}
-        </a>
-        @endforeach
 
-      </div> 
+      <div class="image-container shadow-lg">
+      </div>
+      <br/>
+      <p style="font-size: 40px" class="text-center"><b>Where to next?</b></p>
+      <div class="input-group mb-3">
+        <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      </div>
+      <button style="text-align: left" class="btn btn-light" name="btn1" id="btn1">Small mode</button>
+      <button style="float: right" class="btn btn-light" name="btn2" id="btn2">Large mode</button>
+      <div class="container">
+        <div class="row" id="items">
+          <?php
+            $count = 0;
+          ?>
+          @foreach ($placements as $item)
+          <a class="card shadow col-12 p-0" 
+          @guest href="{{URL::to('/login')}}" @else href="{{URL::to('/placements/' . $item->id)}}" @endguest>
+            <div id="carouselId_{{$count}}" class="carousel slide card-img-top" data-bs-ride="carousel">
+              <div class="carousel-inner" role="listbox">
+                @for ($i = 0; $i < count($item->photos()->get()); $i++)
+                  <div class="carousel-item {{$i == 0 ? "active" : ""}}">
+                    <img src="{{asset($item->photos()->get()[$i]->path)}}" class="w-100 d-block" alt="Second slide">
+                  </div>
+                @endfor
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselId_{{$count}}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselId_{{$count}}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            {{-- <img style="border-radius: 5px" src="{{asset($item->photos()->get()[0]->path)}}" class="card-img-top" alt="..."> --}}
+            <div class="card-body">
+              <h5 class="card-title">{{$item->title}}</h5>
+              <p class="card-text">Hello World!</p>
+            </div>
+            {{-- <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div> --}}
+          </a>
+          <?php $count++;?>
+          @endforeach
+          
+        </div> 
+      </div>
+
     </div>
   </div>
 @endsection

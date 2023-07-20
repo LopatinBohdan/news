@@ -31,8 +31,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
         integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         main {
             display: flex;
@@ -49,6 +52,7 @@
             top: 0;
             width: 100%;
             background-color: #333;
+
         }
 
         .footer {
@@ -59,14 +63,24 @@
             position: sticky;
             bottom: 0;
         }
+        /* .carousel .carousel-item {
+          width: 35vw;
+          height: 45vh;
+        }
+        .carousel-item img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          min-height: 50%;
+        } */
     </style>
     @yield('styles')
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body
-    style="background-color: #e6edf3; 
+<body style="background-color: #1794D72E; 
+
 font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'; 
 font-size: var(--body-font-size, 14px);
 line-height: 1.5; color: #0d1117">
@@ -78,9 +92,11 @@ line-height: 1.5; color: #0d1117">
                     <i class="fa-solid fa-house-tsunami fa-fade fa-xl" style="color: #2014f8;"></i>
                     <i>Apartment is here!</i>
                 </a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -123,6 +139,7 @@ line-height: 1.5; color: #0d1117">
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
+                        
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -254,6 +271,7 @@ line-height: 1.5; color: #0d1117">
     </div>
 
     @yield('script')
+
 
 </body>
 
