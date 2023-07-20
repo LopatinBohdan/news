@@ -22,10 +22,8 @@
         <input name="home" class="form-control" required placeholder="home"/>
         <input name="longitude" class="form-control" required placeholder="longitude"/>
         <input name="latitude" class="form-control" required placeholder="latitude"/>
-        <input type="file" name="placement_photo"/>
+        <input type="file" name="placement_photo[]" multiple/>
         <input type="submit" class="btn btn-outline-primary" value="Add Placement"/>
-        
-    
     </form>
 </div>
 </div>

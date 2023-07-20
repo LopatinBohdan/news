@@ -14,9 +14,9 @@
         @if (isset($photos)&&count($photos)!=0)
         <div id="carouselId" class="carousel slide col-4" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                @for ($i = 0; $i < $count; $i++)
+                @for ($i = 0; $i < count($photos); $i++)
                     <div class="carousel-item {{$i==0?"active":""}}">
-                        <img src="{{ asset($photo[$i]->path) }}" class="w-100 d-block" alt="First slide">
+                        <img src="{{ asset($photos[$i]->path) }}" class="w-100 d-block" alt="First slide">
                     </div>
                 @endfor
             </div>
