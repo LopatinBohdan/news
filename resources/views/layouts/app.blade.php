@@ -24,7 +24,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
         integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
@@ -95,11 +97,13 @@ line-height: 1.5; color: #0d1117">
                         <a href={{URL::to('/categories')}} class="nav-link">To Categories</a>
                     </li>
                     @endcan
+
                     @can('Full access')
                     <li class="nav-item">
                         <a href={{URL::to('/comforts')}} class="nav-link">To Comforts</a>
                     </li>
                     @endcan
+                    
                 </ul>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -256,10 +260,11 @@ line-height: 1.5; color: #0d1117">
     @yield('script')
 
     <script>
-      const button1 = document.getElementById('btn1');
-      const button2 = document.getElementById('btn2');
-      const myDiv = document.getElementById('items');
+      // const button1 = document.getElementById('btn1');
+      // const button2 = document.getElementById('btn2');
+      // const myDiv = document.getElementById('items');
     
+
       button1.addEventListener('click', () => {
         Array.from(myDiv.children).forEach(child => {
           child.classList.remove('col-12');
@@ -273,6 +278,7 @@ line-height: 1.5; color: #0d1117">
           child.classList.add('col-12');
         });
       });
+
     
     </script>
 

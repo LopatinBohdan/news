@@ -1,11 +1,13 @@
 @extends('layouts.app')
+
 @section('content')
 
-<table class="table">
+<table class="table table">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Total sum</th>
+            <th>title</th>
+            <th>totalSum</th>
+
         </tr>
     </thead>
     <tbody>
@@ -15,6 +17,10 @@
             <td>{{$order->totalSum}}</td>
         </tr>
         @endforeach
+
+        
     </tbody>
+
+
 </table>
 @endsection

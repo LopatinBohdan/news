@@ -24,8 +24,6 @@
         <input name="latitude" class="form-control" required placeholder="latitude"/>
         <input type="file" name="placement_photo[]" multiple/>
         <input type="submit" class="btn btn-outline-primary" value="Add Placement"/>
-        
-    
     </form>
 </div>
 </div>
