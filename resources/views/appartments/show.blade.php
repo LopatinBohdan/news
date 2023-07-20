@@ -9,7 +9,25 @@
     <li class="breadcrumb-item active" aria-current="page">Show</li>
   </ol>
 </nav>
-
+@if(isset($photos))
+<div id="carouselExampleIndicators" class="carousel slide w-50" data-bs-ride="true">
+    <div class="carousel-inner">
+        @for ($i = 0; $i < count($photos); $i++)
+            <div class="carousel-item {{$i==0?"active":""}}">
+            <img src="{{asset($photos[$i]->path)}}" class="d-block w-100" alt="...">
+          </div>
+        @endfor
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+@endif
 <ul >
   <li>{{$appartment->id}}</li> 
   <li>{{$appartment->title}}</li> 
@@ -18,7 +36,7 @@
   <li>{{$appartment->price}}</li> 
   <li>{{$appartment->created_at}}</li> 
   <li>{{$appartment->updated_at}}</li> 
-  <li>photo - {{count($photo)}}</li> 
+  <li>photo - {{count($photos)}}</li> 
 </ul>
 <table class="table table">
   <thead>
@@ -49,24 +67,5 @@
   </tbody>
 </table>
    
-        {{-- @if(isset($photo))
-        <div id="carouselExampleIndicators" class="carousel slide w-50" data-bs-ride="true">
-            <div class="carousel-inner">
-                @for ($i = 0; $i < count($photo); $i++)
-                    <div class="carousel-item {{$i==0?"active":""}}">
-                    <img src="{{asset($photo[$i]->path)}}" class="d-block w-100" alt="...">
-                  </div>
-                @endfor
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        @endif --}}
 
 @endsection

@@ -14,7 +14,11 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
     <!-- FontAwesome 6.2.0 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
@@ -27,18 +31,30 @@
 
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <style>
-        .myNav{
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #333;
-        }
-        footer {
-          height: 100%;
-          background-color: #000;
-        }
+      main {
+        display: flex;
+        flex-direction: column;
+        min-height: 76vh;
+      }
+      .container {
+        flex: 1;
+      }
+      .myNav{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #333;
+      }
+      .footer {
+        height: 100%;
+        background-color: #000;
+        text-align: center;
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+      }
     </style>
-
+    @yield('styles')
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -159,9 +175,9 @@ line-height: 1.5; color: #0d1117">
           <!-- Footer -->
 <footer class="footer bg-gradient text-center text-white position-sticky">
     <!-- Grid container -->
-    <div class="container p-4">
+    <div class="container p-3">
       <!-- Section: Social media -->
-      <section class="mb-4">
+      <section class="mb-2">
         <!-- Facebook -->
         <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
           ><i class="fab fa-facebook-f"></i
@@ -210,7 +226,7 @@ line-height: 1.5; color: #0d1117">
             <!--Grid column-->
             <div class="col-md-5 col-12">
               <!-- Email input -->
-              <div class="form-outline form-white mb-4">
+              <div class="form-outline form-white mb-2">
                 <input type="email" id="form5Example21" class="form-control" placeholder="Email address" />
               </div>
             </div>
@@ -219,7 +235,7 @@ line-height: 1.5; color: #0d1117">
             <!--Grid column-->
             <div class="col-auto">
               <!-- Submit button -->
-              <button type="submit" class="btn btn-outline-light mb-4">
+              <button type="submit" class="btn btn-outline-light mb-2">
                 Subscribe
               </button>
             </div>
@@ -232,7 +248,7 @@ line-height: 1.5; color: #0d1117">
     <!-- Grid container -->
   
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2023 Copyright:
       <a class="text-white" href="/">Booking KR</a>
     </div>
@@ -242,27 +258,6 @@ line-height: 1.5; color: #0d1117">
     </div>
 
     @yield('script')
-
-    <script>
-      const button1 = document.getElementById('btn1');
-      const button2 = document.getElementById('btn2');
-      const myDiv = document.getElementById('items');
-    
-      button1.addEventListener('click', () => {
-        Array.from(myDiv.children).forEach(child => {
-          child.classList.remove('col-12');
-          child.classList.add('col-3');
-        });
-      });
-    
-      button2.addEventListener('click', () => {
-        Array.from(myDiv.children).forEach(child => {
-          child.classList.remove('col-3');
-          child.classList.add('col-12');
-        });
-      });
-    
-    </script>
 
 </body>
 </html>

@@ -102,6 +102,9 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         $role=Role::find($id);
+        if($role->permissions()->exists()||$role->users()->exists()){
+            return redirect("roles");
+        }
         $role->delete();
         return redirect("roles");
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
@@ -87,6 +88,9 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user=User::find($id);
+        foreach (Order::where("userID",$id)->get() as $order) {
+            Order::destroy($order->id);
+        }
         $user->delete();
         return redirect("users.index");
     }
