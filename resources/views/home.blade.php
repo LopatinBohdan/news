@@ -63,13 +63,17 @@
       <div class="input-group mb-3">
         <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
       </div>
-      <button name="btn1" id="btn1">Button1</button>
-      <button name="btn2" id="btn2">Button2</button>
+      <button style="text-align: left" class="btn btn-light" name="btn1" id="btn1">Small mode</button>
+      <button style="float: right" class="btn btn-light" name="btn2" id="btn2">Big mode</button>
       <div class="container">
         <div class="row" id="items">
+          <?php
+            $count = 0;
+          ?>
           @foreach ($placements as $item)
-          <a class="card shadow col-12 p-0 me-2 ms-2" href="{{URL::to('/placements/' . $item->id)}}">
-            <div id="carouselId" class="carousel slide card-img-top" data-bs-ride="carousel">
+          <a class="card shadow col-12 p-0 me-2 ms-2" 
+          @guest href="{{URL::to('/login/')}}" @else href="{{URL::to('/placements/' . $item->id)}}" @endguest>
+            <div id="carouselId_{{$count}}" class="carousel slide card-img-top" data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
                 @for ($i = 0; $i < count($item->photos()->get()); $i++)
                   <div class="carousel-item {{$i == 0 ? "active" : ""}}">
@@ -77,11 +81,11 @@
                   </div> 
                 @endfor
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselId_{{$count}}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselId_{{$count}}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
                 </button>

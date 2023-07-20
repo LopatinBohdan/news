@@ -37,6 +37,16 @@
           height: 100%;
           background-color: #000;
         }
+        /* .carousel .carousel-item {
+          width: 35vw;
+          height: 45vh;
+        }
+        .carousel-item img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          min-height: 50%;
+        } */
     </style>
 
     <!-- Scripts -->
