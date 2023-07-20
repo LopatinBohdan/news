@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Appartment;
 use App\Models\Booking;
+use App\Models\Order;
 use App\Models\Photo;
 use App\Models\Placement;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AppartmentController extends Controller
 {
@@ -51,18 +53,14 @@ class AppartmentController extends Controller
         $placement=Placement::find($placement_id);
         $placement->appartments()->attach($appartment);
 
-        if(count($_FILES)==0){
-            dd(count($_FILES));
-            return redirect('placements');
-        }
         if($request->hasFile('appartment_photo')){
-        foreach ($request->file('appartment_photo') as $file) {
-            $photo=new Photo();
-            $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement_id."\\".$appartment->id));
-            $photo->name=$photo->path;
-            $photo->save();
-
-            $appartment->photos()->attach($photo);
+            foreach ($request->file('appartment_photo') as $file) {
+                $photo=new Photo();
+                $photo->path=str_replace('public', 'storage',$file->store("public\images\\".$placement_id."\\".$appartment->id));
+                $photo->name=$photo->path;
+                $photo->save();
+                
+                $appartment->photos()->attach($photo);
         }}
         
         return redirect()->action(
@@ -77,9 +75,9 @@ class AppartmentController extends Controller
     {
         $appartment=Appartment::find($id);
         $placement=$appartment->placements()->get();
-        $photo=$appartment->photos()->get();
+        $photos=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
-        return view('appartments.show', compact('appartment', 'photo', 'placement', 'bookings'));
+        return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings'));
     }
 
     /**
@@ -115,7 +113,31 @@ class AppartmentController extends Controller
     public function destroy(string $id)
     {
         $appartment=Appartment::find($id);
-        $placement_id=$appartment->placements()->get()[0]->id;
+        $placement_id=$appartment->placements()->first()->id;
+        if(Order::where('placementID',$placement_id)->exists()){
+            $orders = Order::where('placementID',$placement_id)->get();
+            foreach ($orders as $order) {
+                $appartments = $order->appartments()->get();
+                if($order->appartments()->where('appartmentId',$id)->exists()){
+                    return redirect()->action(
+                        [PlacementController::class, 'show'], ['placement' => $placement_id]
+                    );
+                }
+            }
+        }
+        $photos = $appartment->photos()->get();
+        foreach ($photos as $photo) {
+            if(File::exists($photo->path)){
+                $directoryPath = dirname($photo->path);
+                File::delete($photo->path);
+                if (is_dir($directoryPath) && count(glob($directoryPath . '/*')) === 0) {
+                    rmdir($directoryPath);
+                }
+            }
+            $photo->delete();
+        }
+        $appartment->photos()->detach();
+        $appartment->placements()->detach();
         $appartment->delete();
         return redirect()->action(
             [PlacementController::class, 'show'], ['placement' => $placement_id]

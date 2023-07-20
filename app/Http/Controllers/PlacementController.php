@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Order;
+use Illuminate\Support\Facades\File;
 
 use App\Models\Appartment;
-use App\Models\Comfort;
 use App\Models\Photo;
 use App\Models\Placement;
-use DateTime;
 use Illuminate\Http\Request;
 
 class PlacementController extends Controller
@@ -113,7 +112,27 @@ class PlacementController extends Controller
      */
     public function destroy(string $id)
     {
+        if(Order::where('placementID',$id)->exists()){
+            return redirect('placements');
+        }
         $placement=Placement::find($id);
+        $photos = $placement->photos()->get();
+        foreach ($photos as $photo) {
+            if(File::exists($photo->path)){
+                $directoryPath = dirname($photo->path);
+                File::delete($photo->path);
+                if (is_dir($directoryPath) && count(glob($directoryPath . '/*')) === 0) {
+                    rmdir($directoryPath);
+                }
+            }
+            $photo->delete();
+        }
+        $placement->photos()->detach();
+        $appartments = $placement->appartments()->get();
+        foreach ($appartments as $appartment ) {
+            Appartment::destroy($appartment->id);
+        }
+        $placement->appartments()->detach();
         $placement->delete();
         return redirect('placements');
     }

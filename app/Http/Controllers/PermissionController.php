@@ -80,7 +80,11 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
+        
         $permission=Permission::find($id);
+        if($permission->roles()->exists()||$permission->users()->exists()){
+            return redirect("permissions");
+        }
         $permission->delete();
         return redirect("permissions");
     }

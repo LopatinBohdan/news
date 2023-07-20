@@ -12,6 +12,7 @@
   </ol>
 </nav>
 
+
 <div class="row">
   @if (isset($photo)&&count($photo)!=0)
   <div id="carouselId" class="carousel slide col-md-4 col-12" data-bs-ride="carousel">
@@ -46,6 +47,7 @@
   </div>
 </div>
 <table class="table table" style="text-align: center">
+
   <thead>
     <tr>
       <th>BookingBegin</th>
@@ -74,24 +76,5 @@
   </tbody>
 </table>
    
-        {{-- @if(isset($photo))
-        <div id="carouselExampleIndicators" class="carousel slide w-50" data-bs-ride="true">
-            <div class="carousel-inner">
-                @for ($i = 0; $i < count($photo); $i++)
-                    <div class="carousel-item {{$i==0?"active":""}}">
-                    <img src="{{asset($photo[$i]->path)}}" class="d-block w-100" alt="...">
-                  </div>
-                @endfor
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        @endif --}}
 
 @endsection
