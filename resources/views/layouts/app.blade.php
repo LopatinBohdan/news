@@ -28,23 +28,34 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         .myNav{
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #333;
+          position: fixed;
+          top: 0;
+          width: 100%;
+          background-color: #333;
         }
         footer {
           height: 100%;
           background-color: #000;
         }
+        /* .carousel .carousel-item {
+          width: 35vw;
+          height: 45vh;
+        }
+        .carousel-item img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          min-height: 50%;
+        } */
     </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body style="background-color: #e6edf3; 
+<body style="background-color: #1794D72E; 
 font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'; 
 font-size: var(--body-font-size, 14px);
 line-height: 1.5; color: #0d1117">
@@ -110,6 +121,7 @@ line-height: 1.5; color: #0d1117">
                         <!-- Authentication Links -->
                         
                         @guest
+                        
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -252,19 +264,21 @@ line-height: 1.5; color: #0d1117">
       // const button2 = document.getElementById('btn2');
       // const myDiv = document.getElementById('items');
     
-      // button1.addEventListener('click', () => {
-      //   Array.from(myDiv.children).forEach(child => {
-      //     child.classList.remove('col-12');
-      //     child.classList.add('col-3');
-      //   });
-      // });
+
+      button1.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-12');
+          child.classList.add('col-4');
+        });
+      });
     
-      // button2.addEventListener('click', () => {
-      //   Array.from(myDiv.children).forEach(child => {
-      //     child.classList.remove('col-3');
-      //     child.classList.add('col-12');
-      //   });
-      // });
+      button2.addEventListener('click', () => {
+        Array.from(myDiv.children).forEach(child => {
+          child.classList.remove('col-4');
+          child.classList.add('col-12');
+        });
+      });
+
     
     </script>
 

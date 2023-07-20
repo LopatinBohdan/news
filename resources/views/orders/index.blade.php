@@ -7,6 +7,7 @@
         <tr>
             <th>title</th>
             <th>totalSum</th>
+
         </tr>
     </thead>
     <tbody>
@@ -16,8 +17,10 @@
             <td>{{$order->totalSum}}</td>
         </tr>
         @endforeach
+
         
     </tbody>
+
 
 </table>
 @endsection
