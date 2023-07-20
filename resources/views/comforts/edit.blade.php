@@ -17,6 +17,6 @@
         <option value={{$category->id}} >{{$category->title}}</option>
         @endforeach
     </select>
-    <input type="submit" class="btn btn-outline-primary" value="Add Comfort">
+    <input type="submit" class="btn btn-outline-primary" value="Edit Comfort">
 </form>
 @endsection

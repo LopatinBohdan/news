@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("statuses/create")}}" class="btn btn-outline-primary">Create Status</a>
-<table class="table table">-
+<table class="table table">
     <thead>
     <tr>
         <th>Id</th>

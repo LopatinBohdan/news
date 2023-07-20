@@ -21,6 +21,6 @@
     <input name="home" class="form-control" value="{{$placement->home}}"/>
     <input name="longitude" class="form-control" value="{{$placement->longitude}}"/>
     <input name="latitude" class="form-control" value="{{$placement->latitude}}"/>
-    <input type="submit" class="btn btn-outline-primary" value="Edit Permission">
+    <input type="submit" class="btn btn-outline-primary" value="Edit Placement">
 </form>
 @endsection

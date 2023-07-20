@@ -45,7 +45,7 @@
       </ul>
   </div>
 </div>
-<table class="table table">
+<table class="table table" style="text-align: center">
   <thead>
     <tr>
       <th>BookingBegin</th>

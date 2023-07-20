@@ -17,6 +17,6 @@
     <input type="number" name="personAmount" class="form-control" value="{{$appartment->personAmount}}"/>
     <input type="number" name="roomAmount" class="form-control" value="{{$appartment->roomAmount}}"/>
     <input type="number" name="price" class="form-control" value="{{$appartment->price}}"/>
-    <input type="submit" class="btn btn-primary" value="Edit Permission">
+    <input type="submit" class="btn btn-primary" value="Edit Apartment">
 </form>
 @endsection

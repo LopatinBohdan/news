@@ -12,6 +12,7 @@
     </nav>
         <a href="{{URL::to("appartments/createAppartment/".$placement->id)}}" class="btn btn-outline-success me-3">Add apartment</a>
     @endcan
+    <br>
     <div class="row">
         @if (isset($photos)&&count($photos)!=0)
         <div id="carouselId" class="carousel slide col-md-4 col-12" data-bs-ride="carousel">
@@ -51,7 +52,7 @@
         </div>
     </div>
 
-    <table class="table table">
+    <table class="table table" style="text-align: center">
         <thead>
             <tr>
                 @can('placement administrate')
@@ -83,7 +84,7 @@
                     <td>{{ $appartment->updated_at }}</td>
                     @endcan
                     <td>
-                        <div class="d-flex">
+                        <div class="d-flex justify-content-center">
                             <button id="button_{{ $loop->index }}"class="btn btn-outline-success me-3"
                                 onclick="updateCookie('{{ auth()->user()->id }}', '{{ $placement->id }}', '{{ $appartment->id }}','button_{{ $loop->index }}')">To
                                 order</button>
