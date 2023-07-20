@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('appartment_order', function (Blueprint $table) {
             $table->id();
-            $table->integer('appartmentId')->unsigned();
-            $table->integer('orderId')->unsigned();
+            $table->integer('appartment_id')->unsigned();
+            $table->integer('order_id')->unsigned();
             $table->timestamps();
         });
     }
