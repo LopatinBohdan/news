@@ -93,9 +93,6 @@
           <input type="submit" class="btn btn-outline-primary" value="Add Placement"/>
       </form>
     </div>
-
-
-
 @endsection
 
 @section('script')
