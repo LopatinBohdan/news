@@ -14,6 +14,7 @@
     </nav>
 
 
+
     <div class="row">
         @if (isset($photo) && count($photo) != 0)
             <div id="carouselId" class="carousel slide col-md-4 col-12" data-bs-ride="carousel">
@@ -47,6 +48,22 @@
             </ul>
         </div>
     </div>
+    
+    <div class="row mb-1">
+        @foreach ($comfortCategories as $category)
+            <div class="col-md-3 col-12">
+                <h4>{{ $category->title }}</h4>
+                @foreach ($comforts as $comfort)
+                    @if ($comfort->categoryId == $category->id)
+                        <div>
+                            <i class="fa-regular fa-circle-check fa-fade me-2"
+                                style="color: #144ade;"></i>{{ $comfort->title }}
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endforeach
+    </div>
     @can('placement administrate')
         <table class="table table" style="text-align: center">
 
@@ -73,9 +90,12 @@
                     </tr>
                 @endforeach
 
+
+
             </tbody>
         </table>
     @endcan
+
 
 
 @endsection

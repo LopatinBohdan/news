@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Appartment;
 use App\Models\Booking;
+use App\Models\Comfort;
+use App\Models\ComfortCategory;
 use App\Models\Order;
 use App\Models\Photo;
 use App\Models\Placement;
@@ -34,7 +36,9 @@ class AppartmentController extends Controller
     {
         $placement=Placement::find($id);
         $placement_id=$placement->id;
-        return view('appartments.createAppartment', compact('placement','placement_id'));
+        $comforts = Comfort::all();
+        $comfortCategories = ComfortCategory::all();
+        return view('appartments.createAppartment', compact('placement','placement_id','comforts','comfortCategories'));
     }
 
     /**
@@ -47,12 +51,15 @@ class AppartmentController extends Controller
         $appartment->personAmount=$request->get('personAmount');
         $appartment->roomAmount=$request->get('roomAmount');
         $appartment->price=$request->get('price');
-        
         $appartment->save();
         $placement_id= $request->get('placement_id');
         $placement=Placement::find($placement_id);
         $placement->appartments()->attach($appartment);
-
+        foreach (Comfort::all() as $comfort) {
+            if($request->exists($comfort->id)){
+                $appartment->comforts()->attach($comfort);
+            }
+        }
         if($request->hasFile('appartment_photo')){
             foreach ($request->file('appartment_photo') as $file) {
                 $photo=new Photo();
@@ -77,7 +84,11 @@ class AppartmentController extends Controller
         $placement=$appartment->placements()->get();
         $photo=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
-        return view('appartments.show', compact('appartment', 'photo', 'placement', 'bookings'));
+
+        $comforts = $appartment->comforts()->get();
+        $comfortCategories = ComfortCategory::all();
+        return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings','comforts','comfortCategories'));
+
     }
 
     /**
