@@ -20,7 +20,8 @@ class OrderController extends Controller
     {
         $userId = Auth::user()->id;
         $orders = Order::where("userId",$userId)->get();
-        return view('orders.index', compact('orders'));
+        $statuses=Status::all();
+        return view('orders.index', compact('orders', 'statuses'));
     }
 
     /**
@@ -42,7 +43,9 @@ class OrderController extends Controller
         $order->userId=auth()->user()->id;
         $order->placementId=$request->get('placementId');
         $placement=Placement::find($order->placementId);
-        $order->title="Order ".$placement->title." ".((new DateTime())->format("dd-mm-YYYY"));
+        // $d=(new DateTime())->format("dd-mm-YYYY");
+        $d=(new DateTime());
+        $order->title="Order ".$placement->title." ".$d->format("d-m-Y");
         $order->totalSum=$request->get('totalPrice_'.$placement->id);
 
         $order->statusId=Status::where('name', "awaiting confirmation")->first()->id;
@@ -71,6 +74,7 @@ class OrderController extends Controller
             $booking->bookingFirst=$request->get('firstDate_'.$appartmentID);
             $booking->bookingLast=$request->get('lastDate_'.$appartmentID);
             $booking->appartmentId=$appartmentID;
+            $booking->orderId=$order->id;
             $booking->save();
 
             $order->appartments()->attach(Appartment::find($appartmentID));
@@ -96,8 +100,8 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order=Order::find($id);
-
-        return view('orders.show', compact('order'));
+        
+        return view('orders.show', compact('order', 'status'));
     }
 
     /**
@@ -121,6 +125,62 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function canselOrder(string $id){
+        $booking=Booking::find($id);
+        $order=Order::find($booking->orderId);
+        $order->statusId=3;
+        $order->save();
+        $appartment_id=$booking->appartmentId;
+        // BookingController::destroy($id);
+        $booking->delete();
+
+        return redirect()->action(
+            [AppartmentController::class, 'show'], ['appartment' => $appartment_id]
+        );
+    }
+    public function canselfromOrders(string $id){
+        // $booking=Booking::find($id);
+        // $order=Order::find($booking->orderId);
+        // $order->statusId=3;
+        // $order->save();
+        // $appartment_id=$booking->appartmentId;
+        // // BookingController::destroy($id);
+        // $booking->delete();
+        $order=Order::find($id);
+        $booking=Booking::where('orderId', $order->id)->first();
+        $order->statusId=3;
+        $order->save();
+        $appartment_id=$booking->appartmentId;
+        $booking->delete();
+
+        return redirect()->action(
+            [AppartmentController::class, 'show'], ['appartment' => $appartment_id]
+        );
+    }
+    public function confirmOrder(string $id){
+        $booking=Booking::find($id);
+        $order=Order::find($booking->orderId);
+        $order->statusId=2;
+        $order->save();
+        $appartment_id=$booking->appartmentId;
+
+        return redirect()->action(
+            [AppartmentController::class, 'show'], ['appartment' => $appartment_id]
+        );
+    }
+    public function closedOrder(string $id){
+        $booking=Booking::find($id);
+        $order=Order::find($booking->orderId);
+        $order->statusId=4;
+        $order->save();
+        $appartment_id=$booking->appartmentId;
+
+        $booking->delete();
+        return redirect()->action(
+            [AppartmentController::class, 'show'], ['appartment' => $appartment_id]
+        );
+    }
+
     public function destroy(string $id)
     {
         $order = Order::find($id);

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -50,35 +51,55 @@
       </ul> --}}
   </div>
 </div>
-@can('placement administrate')
-<table class="table table" style="text-align: center">
-  <thead>
-    <tr>
-      <th>BookingBegin</th>
-      <th>BookingEnd</th>
-      <th>Operation</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($bookings as $item)
-      <tr>
-        <td>{{$item->bookingFirst}}</td>
-        <td>{{$item->bookingLast}}</td>
-        <td>
-          <div class="d-flex justify-content-center">
-              <a href="{{URL::to("bookings/".$item->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
-              <form method="post" action="{{route('bookings.destroy',$item->id)}}">
-                  @csrf
-                  @method('DELETE')
-                  <input type="submit" value="Delete" class="btn btn-outline-danger">
-              </form>
-          </div>
-          </td> 
-      </tr>
-    @endforeach
+
+ <div class="row mb-1">
+        @foreach ($comfortCategories as $category)
+            <div class="col-md-3 col-12">
+                <h4>{{ $category->title }}</h4>
+                @foreach ($comforts as $comfort)
+                    @if ($comfort->categoryId == $category->id)
+                        <div>
+                            <i class="fa-regular fa-circle-check fa-fade me-2"
+                                style="color: #144ade;"></i>{{ $comfort->title }}
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endforeach
+    </div>
     
-  </tbody>
-</table>
-@endcan
+@can('placement administrate')
+        <table class="table table" style="text-align: center">
+
+            <thead>
+                <tr>
+                    <th>BookingBegin</th>
+                    <th>BookingEnd</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($bookings as $item)
+                    <tr>
+                        <td>{{ $item->bookingFirst }}</td>
+                        <td>{{ $item->bookingLast }}</td>
+                        <td>
+                            <div class="d-flex">
+                              <a href="{{ URL::to('bookings/' . $item->id . '/edit') }}"class="btn btn-outline-secondary me-3">Edit</a>
+                              <a href="{{ URL::to('orders/confirmOrder/' . $item->id) }}"class="btn btn-outline-success me-3">Confirm</a>
+                              <a href="{{ URL::to('orders/canselOrder/' . $item->id) }}"class="btn btn-outline-danger me-3">Cansel</a>
+                              <a href="{{ URL::to('orders/closedOrder/' . $item->id) }}"class="btn btn-outline-danger me-3">Close</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+
+
+
+            </tbody>
+        </table>
+    @endcan
+
+
 
 @endsection

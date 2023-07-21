@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('appartment_id')->unsigned();
             $table->integer('order_id')->unsigned();
-            $table->timestamps();
         });
     }
 

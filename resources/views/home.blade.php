@@ -38,7 +38,9 @@
 @endsection
   
 @section('content')
+
     <div class="container justify-center">
+
       <div class="image-container shadow-lg">
       </div>
       <br/>
