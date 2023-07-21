@@ -14,6 +14,7 @@
     </nav>
 
 
+
     <div class="row">
         @if (isset($photo) && count($photo) != 0)
             <div id="carouselId" class="carousel slide col-md-4 col-12" data-bs-ride="carousel">
@@ -47,6 +48,7 @@
             </ul>
         </div>
     </div>
+    
     <div class="row mb-1">
         @foreach ($comfortCategories as $category)
             <div class="col-md-3 col-12">
@@ -62,36 +64,38 @@
             </div>
         @endforeach
     </div>
-    <table class="table table" style="text-align: center">
+    @can('placement administrate')
+        <table class="table table" style="text-align: center">
 
-        <thead>
-            <tr>
-                <th>BookingBegin</th>
-                <th>BookingEnd</th>
-                <th>Operation</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($bookings as $item)
+            <thead>
                 <tr>
-                    <td>{{ $item->bookingFirst }}</td>
-                    <td>{{ $item->bookingLast }}</td>
-                    <td>
-                        <div class="d-flex">
-                            <a
-                                href="{{ URL::to('bookings/' . $item->id . '/edit') }}"class="btn btn-outline-secondary me-3">Edit</a>
-                            <form method="post" action="{{ route('bookings.destroy', $item->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="Delete" class="btn btn-outline-danger">
-                            </form>
-                        </div>
-                    </td>
+                    <th>BookingBegin</th>
+                    <th>BookingEnd</th>
+                    <th>Operation</th>
                 </tr>
-            @endforeach
+            </thead>
+            <tbody>
+                @foreach ($bookings as $item)
+                    <tr>
+                        <td>{{ $item->bookingFirst }}</td>
+                        <td>{{ $item->bookingLast }}</td>
+                        <td>
+                            <div class="d-flex">
+                              <a href="{{ URL::to('bookings/' . $item->id . '/edit') }}"class="btn btn-outline-secondary me-3">Edit</a>
+                              <a href="{{ URL::to('orders/confirmOrder/' . $item->id) }}"class="btn btn-outline-success me-3">Confirm</a>
+                              <a href="{{ URL::to('orders/canselOrder/' . $item->id) }}"class="btn btn-outline-danger me-3">Cansel</a>
+                              <a href="{{ URL::to('orders/closedOrder/' . $item->id) }}"class="btn btn-outline-danger me-3">Close</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
 
-        </tbody>
-    </table>
+
+
+            </tbody>
+        </table>
+    @endcan
+
 
 
 @endsection

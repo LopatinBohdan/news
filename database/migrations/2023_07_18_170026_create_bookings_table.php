@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bookings', function(Blueprint $table){
             $table->id();
             $table->integer('appartmentId')->reference('id')->on('appartments');
+            $table->integer('orderId')->reference('id')->on('orders');
             $table->date('bookingFirst');
             $table->date('bookingLast');
             $table->timestamps();
