@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("placements/create")}}" class="btn btn-outline-primary">Create Placement</a>
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -40,7 +40,7 @@
                <td>{{$placement->created_at}}</td> 
                <td>{{$placement->updated_at}}</td> 
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to("appartments/createAppartment/".$placement->id)}}" class="btn btn-outline-success me-3">Add apartment</a>
                     <a href="{{URL::to("placements/".$placement->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
                     <a href="{{URL::to("placements/".$placement->id)}}"class="btn btn-outline-primary me-3">Show</a>

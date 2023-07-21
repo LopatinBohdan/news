@@ -6,8 +6,8 @@
     <li class="breadcrumb-item"><a href="/">Home</a></li>
     @can('placement administrate')
     <li class="breadcrumb-item"><a href="/placements">Placements</a></li>
-    <li class="breadcrumb-item"><a href="/placements/{{$placement[0]->id}}">PlacementShow</a></li>
     @endcan
+    <li class="breadcrumb-item"><a href="/placements/{{$placement[0]->id}}">PlacementShow</a></li>
     <li class="breadcrumb-item active" aria-current="page">Show</li>
   </ol>
 </nav>
@@ -34,7 +34,11 @@
   </div>
   @endif
   <div class="col-md-8 col-12">
-      <h2>{{$appartment->title}}</h2>
+    <h2 class="myH2">{{$appartment->title}} @can('Full access') {{$appartment->updated_at}} ({{$appartment->created_at}}) @endcan</h2>
+            <p class="others">Amount of people - {{$appartment->personAmount}}</p>
+            <p class="others">Amount of rooms - {{$appartment->roomAmount}}</p>
+            <h3 class="myH2">Price - {{$appartment->price}}</h3>
+      {{-- <h2>{{$appartment->title}}</h2>
       <ul>
         <li>Amount of people - {{$appartment->personAmount}}</li>
         <li>Amount of rooms - {{$appartment->roomAmount}}</li>
@@ -43,11 +47,11 @@
         <li>Created - {{$appartment->created_at}}</li>
         <li>Updated - {{$appartment->updated_at}}</li>
         @endcan
-      </ul>
+      </ul> --}}
   </div>
 </div>
+@can('placement administrate')
 <table class="table table" style="text-align: center">
-
   <thead>
     <tr>
       <th>BookingBegin</th>
@@ -61,7 +65,7 @@
         <td>{{$item->bookingFirst}}</td>
         <td>{{$item->bookingLast}}</td>
         <td>
-          <div class="d-flex">
+          <div class="d-flex justify-content-center">
               <a href="{{URL::to("bookings/".$item->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
               <form method="post" action="{{route('bookings.destroy',$item->id)}}">
                   @csrf
@@ -75,6 +79,6 @@
     
   </tbody>
 </table>
-   
+@endcan
 
 @endsection

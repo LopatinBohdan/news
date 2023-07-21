@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("permissions/create")}}" class="btn btn-outline-primary">Create Permission</a>
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -28,7 +28,7 @@
                <td>{{$permission->created_at}}</td> 
                <td>{{$permission->updated_at}}</td> 
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to("permissions/".$permission->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
                     <form method="post" action="{{route('permissions.destroy',$permission->id)}}">
                         @csrf

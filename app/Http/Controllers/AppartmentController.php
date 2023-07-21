@@ -75,9 +75,9 @@ class AppartmentController extends Controller
     {
         $appartment=Appartment::find($id);
         $placement=$appartment->placements()->get();
-        $photos=$appartment->photos()->get();
+        $photo=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
-        return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings'));
+        return view('appartments.show', compact('appartment', 'photo', 'placement', 'bookings'));
     }
 
     /**

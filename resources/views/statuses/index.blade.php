@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("statuses/create")}}" class="btn btn-outline-primary">Create Status</a>
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -28,7 +28,7 @@
                <td>{{$status->created_at}}</td> 
                <td>{{$status->updated_at}}</td> 
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to("statuses/".$status->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
                     <form method="post" action="{{route('statuses.destroy',$status->id)}}">
                         @csrf

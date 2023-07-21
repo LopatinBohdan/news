@@ -18,16 +18,28 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    $placements = Placement::all();
-    return view('home', compact('placements'));
-});
+// Route::get('/', function () {
+//     $placements = Placement::all();
+//     return view('home', compact('placements'));
+// });
 Route::get('/countries', function () {
     $file = public_path('countries.json');
     return Response::file($file);
 });
 Route::get('/appartments/createAppartment/{id}',[AppartmentController::class, 'createAppartment']);
 Route::get('/orders/createOrder/{id}',[OrderController::class, 'createOrder']);
+Route::get('/', function(){
+    if(request('search')){
+        $placements = Placement::where('country', 'like', '%' . request('search') . '%')->get();
+        if ($placements == null) {
+            return view('home', );
+        }
+    }
+    else {
+        $placements = Placement::all();
+    }
+    return view('home', compact('placements'));
+});
 //Route::get('/placements/createAppartment',[PlacementController::class, 'createAppartment']);
 //Route::resource('placements.appartments', AppartmentController::class);
 Route::resource('/roles',App\Http\Controllers\RoleController::class);

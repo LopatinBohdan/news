@@ -26,7 +26,7 @@
 
 
 .image-container {
-  width: 70vw;
+  /* width: 70vw; */
   height: 35vh;
   background-image: url('https://rezdy.com//wp-content/uploads/2021/11/Blog-Photos-26.png');
   background-size: cover;
@@ -38,23 +38,19 @@
 @endsection
   
 @section('content')
-  <div class="container">
-    <div class="image-container">
-    </div>
-    <br/>
-    <p style="font-size: 40px" class="text-center"><b>Where to next?</b></p>
-    <div class="input-group mb-3">
-      <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-    </div>
-    <div class="container">
-
+    <div class="container justify-center">
       <div class="image-container shadow-lg">
       </div>
       <br/>
       <p style="font-size: 40px" class="text-center"><b>Where to next?</b></p>
-      <div class="input-group mb-3">
-        <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-      </div>
+      {{-- <form class="input-group mb-3">
+        <input name="search" type="search" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="submit" value="Search" class="fa-solid fa-magnifying-glass">
+      </form> --}}
+      <form class="input-group mb-3">
+        <input name="search" type="search" class="form-control" placeholder="Enter country..." aria-label="Search" aria-describedby="search-addon" />
+        <button type="submit" class="btn btn-outline-success">Search</button>
+      </form>
       <button style="text-align: left" class="btn btn-light" name="btn1" id="btn1">Small mode</button>
       <button style="float: right" class="btn btn-light" name="btn2" id="btn2">Large mode</button>
       <div class="container">
@@ -98,7 +94,6 @@
       </div>
 
     </div>
-  </div>
 @endsection
 
 @section('script')
@@ -110,13 +105,13 @@
     button1.addEventListener('click', () => {
       Array.from(myDiv.children).forEach(child => {
         child.classList.remove('col-12');
-        child.classList.add('col-3');
+        child.classList.add('col-4');
       });
     });
   
     button2.addEventListener('click', () => {
       Array.from(myDiv.children).forEach(child => {
-        child.classList.remove('col-3');
+        child.classList.remove('col-4');
         child.classList.add('col-12');
       });
     });

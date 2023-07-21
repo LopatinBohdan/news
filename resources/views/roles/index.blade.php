@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("roles/create")}}" class="btn btn-outline-primary">Create Role</a>
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -28,7 +28,7 @@
                <td>{{$role->created_at}}</td> 
                <td>{{$role->updated_at}}</td> 
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to("roles/".$role->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
                     <form method="post" action="{{route('roles.destroy',$role->id)}}">
                         @csrf
