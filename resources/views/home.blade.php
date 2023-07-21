@@ -39,14 +39,6 @@
   
 @section('content')
   <div class="container">
-    <div class="image-container">
-    </div>
-    <br/>
-    <p style="font-size: 40px" class="text-center"><b>Where to next?</b></p>
-    <div class="input-group mb-3">
-      <input type="text" placeholder="Enter country..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-    </div>
-    <div class="container">
 
       <div class="image-container shadow-lg">
       </div>

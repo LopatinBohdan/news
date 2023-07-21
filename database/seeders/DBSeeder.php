@@ -200,5 +200,26 @@ class DBSeeder extends Seeder
             'updated_at'=>new DateTime(),
             'categoryId'=>4,
         ]);
+        //Statuses
+        DB::table('statuses')->insert([
+            'name'=>"awaiting confirmation",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
+        DB::table('statuses')->insert([
+            'name'=>"confirmed",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
+        DB::table('statuses')->insert([
+            'name'=>"canseled",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
+        DB::table('statuses')->insert([
+            'name'=>"closed",
+            'created_at'=>new DateTime(),
+            'updated_at'=>new DateTime(),
+        ]);
     }
 }

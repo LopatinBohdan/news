@@ -75,9 +75,9 @@ class AppartmentController extends Controller
     {
         $appartment=Appartment::find($id);
         $placement=$appartment->placements()->get();
-        $photos=$appartment->photos()->get();
+        $photo=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
-        return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings'));
+        return view('appartments.show', compact('appartment', 'photo', 'placement', 'bookings'));
     }
 
     /**
@@ -118,7 +118,7 @@ class AppartmentController extends Controller
             $orders = Order::where('placementID',$placement_id)->get();
             foreach ($orders as $order) {
                 $appartments = $order->appartments()->get();
-                if($order->appartments()->where('appartmentId',$id)->exists()){
+                if($order->appartments()->where('appartment_id',$id)->exists()){
                     return redirect()->action(
                         [PlacementController::class, 'show'], ['placement' => $placement_id]
                     );
