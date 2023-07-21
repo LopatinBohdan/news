@@ -11,9 +11,11 @@
             <li class="breadcrumb-item active" aria-current="page">Show</li>
         </ol>
     </nav>
-    <a href="{{ URL::to('appartments/createAppartment/' . $placement->id) }}" class="btn btn-outline-success me-3">Add
-        apartment</a>
+    @can('placement administrate')
+        <a href="{{URL::to("appartments/createAppartment/".$placement->id)}}" class="btn btn-outline-success me-3">Add apartment</a>
+
     <br>
+    @endcan
     <div class="row">
         @if (isset($photos) && count($photos) != 0)
             <div id="carouselId" class="carousel slide col-md-4 col-12" data-bs-ride="carousel">
@@ -35,24 +37,29 @@
             </div>
         @endif
         <div class="col-md-8 col-12">
-            <h2>{{ $placement->title }}</h2>
-            <ul>
-                <li>Country - {{ $placement->country }}</li>
-                <li>Description - {{ $placement->description }}</li>
-                <li>City - {{ $placement->city }}</li>
-                <li>Region - {{ $placement->region }}</li>
-                <li>Street - {{ $placement->street }}</li>
-                <li>Home - {{ $placement->home }}</li>
-                <li>Latitude - {{ $placement->latitude }}</li>
-                <li>Longitude - {{ $placement->longitude }}</li>
-                @can('Full access')
-                    <li>Created - {{ $placement->created_at }}</li>
-                    <li>Updated - {{ $placement->updated_at }}</li>
-                @endcan
+
+            <h2 class="myH2">{{$placement->title}} @can('Full access') {{$placement->updated_at}} ({{$placement->created_at}}) @endcan</h2>
+            <p class="information">{{$placement->description}}</p>
+            <p class="others">Country - {{$placement->country}}</p>
+            <p class="others">City - {{$placement->city}}</p>
+            <p class="others">Region - {{$placement->region}}</p>
+            <p class="others">Street - {{$placement->street}}</p>
+            <p class="others">Home - {{$placement->home}}</p>
+            <p class="others">Latitude/longitude - {{$placement->latitude}}/{{$placement->longitude}}</p>
+            <ul class="list-group">
+                {{-- <li class="list-group-item">City - {{$placement->city}}</li>
+                <li class="list-group-item">Region - {{$placement->region}}</li>
+                <li class="list-group-item">Street - {{$placement->street}}</li>
+                <li class="list-group-item">Home - {{$placement->home}}</li>
+                <li class="list-group-item">Latitude - {{$placement->latitude}}</li>
+                <li class="list-group-item">Longitude - {{$placement->longitude}}</li> --}}
+                {{-- @can('Full access')
+                <li class="list-group-item">Created - {{$placement->created_at}}</li>
+                <li class="list-group-item">Updated - {{$placement->updated_at}}</li>
+                @endcan --}}
             </ul>
         </div>
-    </div>
-    <div class="row mb-1">
+        <div class="row mb-1">
         @foreach ($comfortCategories as $category)
             <div class="col-md-3 col-12">
                 <h4>{{ $category->title }}</h4>
@@ -67,6 +74,8 @@
             </div>
         @endforeach
     </div>
+    </div>
+
     <table class="table table" style="text-align: center">
         <thead>
             <tr>

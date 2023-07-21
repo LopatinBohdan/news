@@ -83,15 +83,15 @@
                 var totalPrice=document.getElementById('totalPrice_{{$currentPlacement->id}}');
                 <?php $currentAppartment = $appartments->where('id', $appartmentID)->first(); ?>
                 var price=parseFloat({{$currentAppartment->price}});
-                var days= (new Date(document.getElementById('lastDate_{{$appartmentID}}').value).getTime() 
-                - new Date(document.getElementById('firstDate_{{$appartmentID}}').value).getTime())/(1000 * 3600 * 24);
+                var days = (new Date(document.getElementById('lastDate_{{$appartmentID}}').value).getTime() 
+                - new Date(document.getElementById('firstDate_{{$appartmentID}}').value).getTime())/(1000 * 3600 * 24) + 1;
                 if(totalPrice.value!=0 && !isNaN(days)){
                     totalPrice.value=parseFloat(totalPrice.value)-price*days;
                 }
                 document.getElementById('firstDate_{{$appartmentID}}').value = picker.startDate.format('YYYY-MM-DD');
                 document.getElementById('lastDate_{{$appartmentID}}').value = picker.endDate.format('YYYY-MM-DD');
-                days= (new Date(document.getElementById('lastDate_{{$appartmentID}}').value).getTime() 
-                - new Date(document.getElementById('firstDate_{{$appartmentID}}').value).getTime())/(1000 * 3600 * 24);
+                days = (new Date(document.getElementById('lastDate_{{$appartmentID}}').value).getTime() 
+                - new Date(document.getElementById('firstDate_{{$appartmentID}}').value).getTime())/(1000 * 3600 * 24) + 1;
                 totalPrice.value=parseFloat(totalPrice.value)+price*days;
                 
             });

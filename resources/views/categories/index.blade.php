@@ -9,7 +9,7 @@
   </nav>
 
 <a href="{{URL::to("categories/create")}}" class="btn btn-outline-primary">Create Category</a>
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -28,7 +28,7 @@
                <td>{{$category->created_at}}</td> 
                <td>{{$category->updated_at}}</td> 
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to("categories/".$category->id."/edit")}}"class="btn btn-outline-secondary me-3">Edit</a>
                     <form method="post" action="{{route('categories.destroy',$category->id)}}">
                         @csrf

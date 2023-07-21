@@ -18,15 +18,29 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    $placements = Placement::all();
-    return view('home', compact('placements'));
-});
+// Route::get('/', function () {
+//     $placements = Placement::all();
+//     return view('home', compact('placements'));
+// });
 Route::get('/countries', function () {
     $file = public_path('countries.json');
     return Response::file($file);
 });
 Route::get('/appartments/createAppartment/{id}',[AppartmentController::class, 'createAppartment']);
+
+Route::get('/', function(){
+    if(request('search')){
+        $placements = Placement::where('country', 'like', '%' . request('search') . '%')->get();
+        if ($placements == null) {
+            return view('home', );
+        }
+    }
+    else {
+        $placements = Placement::all();
+    }
+    return view('home', compact('placements'));
+});
+
 Route::get('/orders/canselOrder/{id}',[App\Http\Controllers\OrderController::class, 'canselOrder']);
 Route::get('/orders/canselfromOrders/{id}',[App\Http\Controllers\OrderController::class, 'canselfromOrders']);
 Route::get('/orders/confirmOrder/{id}',[App\Http\Controllers\OrderController::class, 'confirmOrder']);

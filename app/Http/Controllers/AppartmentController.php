@@ -85,6 +85,7 @@ class AppartmentController extends Controller
         $photo=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
 
+
         $comforts = $appartment->comforts()->get();
         $comfortCategories = ComfortCategory::all();
         return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings','comforts','comfortCategories'));

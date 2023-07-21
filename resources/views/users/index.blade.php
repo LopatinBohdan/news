@@ -8,7 +8,7 @@
     </ol>
   </nav>
 
-<table class="table table">
+<table class="table table text-center">
     <thead>
     <tr>
         <th>Id</th>
@@ -23,7 +23,7 @@
                <td>{{$user->id}}</td> 
                <td>{{$user->name}}</td>
                <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <a href="{{URL::to('users/'.$user->id.'/edit')}}" class='btn btn-outline-secondary me-3'>Edit</a>
                     <form method="post" action="{{route('users.destroy',$user->id)}}">
                          @csrf

@@ -63,6 +63,28 @@
             position: sticky;
             bottom: 0;
         }
+        /*styles for placements/apartments*/
+        .myH2{
+            background-color: #1794D72e;
+            border-radius: 15px;
+            text-align: center;
+            font-style: italic;
+        }
+        .information{
+            padding: .5rem;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            background-color: #1794D750;
+        }
+        .others{
+            padding: .5rem;
+            font-size: 1rem;
+            border-radius: 10px;
+            background-color: #0E64ED2f;
+        }
+        .list-group-item{
+            margin-bottom: 1rem;
+        }
         /* .carousel .carousel-item {
           width: 35vw;
           height: 45vh;
@@ -79,9 +101,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body style="background-color: #1794D72E; 
-
-font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'; 
+<body style="background-color: #1794D72E;
+font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';
 font-size: var(--body-font-size, 14px);
 line-height: 1.5; color: #0d1117">
     <div id="app">
@@ -139,7 +160,7 @@ line-height: 1.5; color: #0d1117">
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                        
+
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
