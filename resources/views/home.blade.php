@@ -61,7 +61,7 @@
             $count = 0;
           ?>
           @foreach ($placements as $item)
-          <a class="card shadow col-12 p-0" 
+          <a class="card shadow col-4 p-0" 
           @guest href="{{URL::to('/login')}}" @else href="{{URL::to('/placements/' . $item->id)}}" @endguest>
             <div id="carouselId_{{$count}}" class="carousel slide card-img-top" data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
@@ -83,7 +83,21 @@
             {{-- <img style="border-radius: 5px" src="{{asset($item->photos()->get()[0]->path)}}" class="card-img-top" alt="..."> --}}
             <div class="card-body">
               <h5 class="card-title">{{$item->title}}</h5>
-              <p class="card-text">Hello World!</p>
+              <p class="card-text">{{$item->description}}</p>
+              <?php $appartments=$item->appartments()->get();
+                if(count($appartments) ==0)
+                  $minPrice="...";
+                  else{
+                    $minPrice=$appartments[0]->price;
+                  
+                  foreach ($appartments as $appartment) {
+
+                      if($minPrice>$appartment->price){
+                        $minPrice=$appartment->price;
+                      }
+                  }
+                  } ?>
+              <p class="card-text">Starting from {{$minPrice}} UAH</p>
             </div>
             {{-- <div class="card-footer">
               <small class="text-muted">Last updated 3 mins ago</small>

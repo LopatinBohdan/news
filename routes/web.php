@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppartmentController;
 use App\Http\Controllers\PlacementController;
+use App\Models\Appartment;
 use App\Models\Placement;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,8 @@ Route::get('/appartments/createAppartment/{id}',[AppartmentController::class, 'c
 Route::get('/', function(){
     if(request('search')){
         $placements = Placement::where('country', 'like', '%' . request('search') . '%')->get();
-        if ($placements == null) {
-            return view('home', );
+        if (count($placements)  == 0) {
+            $placements = Placement::all();
         }
     }
     else {

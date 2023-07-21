@@ -75,10 +75,12 @@ class PlacementController extends Controller
         $placement = Placement::find($id);
         $appartments = $placement->appartments()->get();
         $comfortsArray = [];
+        $titleArray = [];
         foreach ($appartments as $appartment) {
             foreach ($appartment->comforts()->get() as $comfort) {
-                if (!in_array($comfort, $comfortsArray)) {
+                if (!in_array($comfort->title, $titleArray)) {
                     $comfortsArray[] = $comfort;
+                    $titleArray[] = $comfort->title;
                 }
             }
         }

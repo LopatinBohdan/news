@@ -37,7 +37,6 @@
             </div>
         @endif
         <div class="col-md-8 col-12">
-
             <h2 class="myH2">{{$placement->title}} @can('Full access') {{$placement->updated_at}} ({{$placement->created_at}}) @endcan</h2>
             <p class="information">{{$placement->description}}</p>
             <p class="others">Country - {{$placement->country}}</p>
@@ -46,18 +45,6 @@
             <p class="others">Street - {{$placement->street}}</p>
             <p class="others">Home - {{$placement->home}}</p>
             <p class="others">Latitude/longitude - {{$placement->latitude}}/{{$placement->longitude}}</p>
-            <ul class="list-group">
-                {{-- <li class="list-group-item">City - {{$placement->city}}</li>
-                <li class="list-group-item">Region - {{$placement->region}}</li>
-                <li class="list-group-item">Street - {{$placement->street}}</li>
-                <li class="list-group-item">Home - {{$placement->home}}</li>
-                <li class="list-group-item">Latitude - {{$placement->latitude}}</li>
-                <li class="list-group-item">Longitude - {{$placement->longitude}}</li> --}}
-                {{-- @can('Full access')
-                <li class="list-group-item">Created - {{$placement->created_at}}</li>
-                <li class="list-group-item">Updated - {{$placement->updated_at}}</li>
-                @endcan --}}
-            </ul>
         </div>
         <div class="row mb-1">
         @foreach ($comfortCategories as $category)

@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="price" class="form-label">Title of appartment</label>
+                    <label for="price" class="form-label">Price</label>
                     <input name="price" id="moneyInput" class="form-control" placeholder="price" />
                 </div>
             </div>

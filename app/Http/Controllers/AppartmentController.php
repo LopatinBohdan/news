@@ -81,14 +81,14 @@ class AppartmentController extends Controller
     public function show(string $id)
     {
         $appartment=Appartment::find($id);
-        $placement=$appartment->placements()->get();
+        $placement=$appartment->placements()->first();
         $photo=$appartment->photos()->get();
         $bookings=Booking::where('appartmentId',$id)->get();
 
 
         $comforts = $appartment->comforts()->get();
         $comfortCategories = ComfortCategory::all();
-        return view('appartments.show', compact('appartment', 'photos', 'placement', 'bookings','comforts','comfortCategories'));
+        return view('appartments.show', compact('appartment', 'photo', 'placement', 'bookings','comforts','comfortCategories'));
 
     }
 

@@ -8,7 +8,7 @@
     @can('placement administrate')
     <li class="breadcrumb-item"><a href="/placements">Placements</a></li>
     @endcan
-    <li class="breadcrumb-item"><a href="/placements/{{$placement[0]->id}}">PlacementShow</a></li>
+    <li class="breadcrumb-item"><a href="/placements/{{$placement->id}}">PlacementShow</a></li>
     <li class="breadcrumb-item active" aria-current="page">Show</li>
   </ol>
 </nav>
@@ -39,17 +39,13 @@
             <p class="others">Amount of people - {{$appartment->personAmount}}</p>
             <p class="others">Amount of rooms - {{$appartment->roomAmount}}</p>
             <h3 class="myH2">Price - {{$appartment->price}}</h3>
-      {{-- <h2>{{$appartment->title}}</h2>
-      <ul>
-        <li>Amount of people - {{$appartment->personAmount}}</li>
-        <li>Amount of rooms - {{$appartment->roomAmount}}</li>
-        <li>Price - {{$appartment->price}} UAH</li>
-        @can('Full access')
-        <li>Created - {{$appartment->created_at}}</li>
-        <li>Updated - {{$appartment->updated_at}}</li>
-        @endcan
-      </ul> --}}
+     
+      
+        <button id="button"class="btn btn-outline-success me-3"
+            onclick="updateCookie('{{ auth()->user()->id }}', '{{ $placement->id }}', '{{ $appartment->id }}','button')">To
+            order</button>
   </div>
+
 </div>
 
  <div class="row mb-1">
@@ -84,7 +80,7 @@
                         <td>{{ $item->bookingFirst }}</td>
                         <td>{{ $item->bookingLast }}</td>
                         <td>
-                            <div class="d-flex">
+                            <div class="d-flex justify-content-center">
                               <a href="{{ URL::to('bookings/' . $item->id . '/edit') }}"class="btn btn-outline-secondary me-3">Edit</a>
                               <a href="{{ URL::to('orders/confirmOrder/' . $item->id) }}"class="btn btn-outline-success me-3">Confirm</a>
                               <a href="{{ URL::to('orders/canselOrder/' . $item->id) }}"class="btn btn-outline-danger me-3">Cansel</a>
@@ -94,12 +90,92 @@
                     </tr>
                 @endforeach
 
-
-
             </tbody>
         </table>
     @endcan
 
 
+
+@endsection
+
+@section('script')
+<script>
+var userID = {{ auth()->user()->id }};
+var cookieData = getCookie(userID);
+var cookieArray = cookieData ? JSON.parse(cookieData) : [];
+for (var i = 0; i < cookieArray.length; i++) {
+    if (cookieArray[i].placementID == {{ $placement->id }}) {
+        var apartments = cookieArray[i].apartmentID;
+        for (var j = 0; j < apartments.length; j++) {
+            if(apartments[j]=={{$appartment->id}}){
+                var buttonId = "button";
+                var button = document.getElementById(buttonId);
+                if (button && button.getAttribute("onclick").includes("'" + apartments[j] + "'")) {
+                    button.disabled = true;
+                }
+            }
+           
+        }
+    }
+}
+
+function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function updateCookie(userID, placementID, apartmentID, buttonId) {
+            // Retrieve the existing cookie data or initialize an empty array
+            var cookieData = getCookie(userID);
+            var cookieArray = cookieData ? JSON.parse(cookieData) : [];
+
+            // Check if the cookie with the same placementID exists
+            var cookieExists = false;
+            for (var i = 0; i < cookieArray.length; i++) {
+                if (cookieArray[i].placementID === placementID) {
+                    // Check if the apartmentID already exists in the array
+                    if (!cookieArray[i].apartmentID.includes(apartmentID)) {
+                        // Add the apartmentID to the existing cookie data
+                        cookieArray[i].apartmentID.push(apartmentID);
+                        cookieExists = true;
+                        break;
+                    }
+                }
+            }
+            // If the cookie doesn't exist, create a new row
+            if (!cookieExists) {
+                var newRow = {
+                    placementID: placementID,
+                    apartmentID: [apartmentID]
+                };
+                cookieArray.push(newRow);
+            }
+            document.getElementById(buttonId).disabled = true;
+
+            // Update the cookie
+            setCookie(userID, JSON.stringify(cookieArray), 1);
+
+            // Optional: Display the updated cookie value
+            console.log("Updated cookie: " + JSON.stringify(cookieArray));
+        }
+</script>
 
 @endsection
